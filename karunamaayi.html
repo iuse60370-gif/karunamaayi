@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ಕರුණಾಮಯಿ</title>
+  <!-- Shiva icon embedded as base64 (placeholder shortened here – replace with your full string if needed) -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAEbkGNhQlgAARuQanVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNj..." />
+  <style>
+    :root {
+      --bg: #f4f4f7;
+      --card-bg: #ffffff;
+      --text: #111827;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+    }
+    [data-theme="dark"] {
+      --bg: #020617;
+      --card-bg: #020617;
+      --text: #e5e7eb;
+      --accent: #22c55e;
+      --accent-soft: #064e3b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+    h1,h2,h3 { margin: 0; }
+    .app-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 15px -3px rgba(15,23,42,0.18);
+      margin-bottom: 16px;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .row > * { flex: 1 1 200px; }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+    input,select,textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    textarea { resize: vertical; min-height: 60px; }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: white;
+    }
+    button.secondary {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    button:disabled { opacity: 0.4; cursor: default; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pill-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill-nav button {
+      background: transparent;
+      color: var(--text);
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      padding: 6px 10px;
+    }
+    .pill-nav button.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .entries-list {
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .entry {
+      border-radius: 12px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      background: rgba(148,163,184,0.12);
+      font-size: 0.82rem;
+    }
+    .entry small { display: block; opacity: 0.7; }
+    .streak {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+    .streak strong { font-size: 1.1rem; }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px dashed #9ca3af;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .muted { font-size: 0.8rem; opacity: 0.75; }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .theme-select { font-size: 0.8rem; }
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1d4ed8, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .login-card {
+      background: rgba(15,23,42,0.96);
+      padding: 20px;
+      border-radius: 18px;
+      width: min(360px, 100% - 32px);
+      color: #e5e7eb;
+    }
+    .login-card h1 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+    .login-card p { font-size: 0.85rem; opacity: 0.8; }
+    .login-card input {
+      border-color: #1f2937;
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+    }
+    .login-card button {
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .error-text { color: #fca5a5; font-size: 0.78rem; min-height: 1em; }
+    .ai-box textarea { min-height: 70px; }
+    .ai-response {
+      font-size: 0.8rem;
+      margin-top: 6px;
+      padding: 8px;
+      border-radius: 10px;
+      background: rgba(148,163,184,0.12);
+    }
+    canvas { width: 100%; max-height: 220px; }
+    @media (max-width: 640px) {
+      .header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- Login -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="muted" style="text-align:center; margin-bottom:10px; font-size:0.9rem;">
+        "You are the architect of your life"
+      </div>
+      <h1>Welcome, Tilak 👋</h1>
+      <div class="muted" style="text-align:center; margin-bottom:8px; font-size:0.9rem;">
+        Hi! Let’s start
+      </div>
+      <p id="loginSubtitle">Set a 4-digit PIN to lock your tracker. This is stored only on this device.</p>
+      <div style="margin-top:10px;">
+        <label for="pinInput">PIN</label>
+        <input id="pinInput" type="password" maxlength="4" inputmode="numeric" />
+      </div>
+      <div class="error-text" id="loginError"></div>
+      <button id="loginBtn">Continue</button>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <div class="header">
+      <div class="muted" style="font-size:0.9rem; margin-bottom:6px; text-align:center; width:100%;">
+        the path of success is always in construction
+      </div>
+      <div>
+        <h1>ಕರුණಾಮಯಿ</h1>
+        <div class="muted">Private UPSC • Career • Other Exams • Personal Work • Meditation</div>
+      </div>
+      <div class="flex-between" style="gap:6px;">
+        <span class="muted" id="versionLabel">v1.0.0</span>
+        <select id="themeSelect" class="theme-select">
+          <option value="light">🌞 Light</option>
+          <option value="dark">🌙 Dark</option>
+        </select>
+        <button class="secondary" id="exportBtn">⬇ Export</button>
+        <button class="secondary" id="importBtn">⬆ Import</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Area / Part
+        <span class="muted">Tap to switch focus</span>
+      </div>
+      <div class="pill-nav" id="partNav">
+        <button data-part="UPSC" class="active">UPSC</button>
+        <button data-part="Career">Career</button>
+        <button data-part="Other Exams">Other Exams</button>
+        <button data-part="Personal Work">Personal Work</button>
+        <button data-part="Meditation">Meditation</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        Today’s Entry
+        <span class="badge" id="todayBadge"></span>
+      </div>
+      <div class="row">
+        <div>
+          <label for="subjectSelect">Subject / Topic</label>
+          <select id="subjectSelect"></select>
+          <div class="chip-row" id="subjectChips"></div>
+          <div class="row" style="margin-top:6px;">
+            <div>
+              <input id="newSubject" placeholder="Add new subject" />
+            </div>
+            <div style="flex:0 0 110px;">
+              <button class="secondary" id="addSubjectBtn">＋ Subject</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="timeInput">Time Studied (mins)</label>
+          <input id="timeInput" type="number" min="0" />
+        </div>
+        <div>
+          <label for="memoryInput">Memory (1–5)</label>
+          <select id="memoryInput">
+            <option value="1">1 – Very low</option>
+            <option value="2">2</option>
+            <option value="3" selected>3 – Okay</option>
+            <option value="4">4</option>
+            <option value="5">5 – Strong</option>
+          </select>
+        </div>
+      </div>
+      <label for="learningInput" style="margin-top:10px;">What did you learn?</label>
+      <textarea id="learningInput" placeholder="Example: Watched Polity basics (Fundamental Rights) – key points…"></textarea>
+      <div class="row" style="margin-top:10px; align-items:flex-end;">
+        <div>
+          <label for="reminderTime">Reminder (optional)</label>
+          <input id="reminderTime" type="time" />
+          <div class="muted">We’ll remind you if the app is open around this time.</div>
+        </div>
+        <div style="flex:0 0 160px;">
+          <button id="saveEntryBtn">💾 Save Entry</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="section-title">Streak & Progress</div>
+          <div class="streak">
+            <div>
+              🔥 Current: <strong id="currentStreak">0</strong> days<br/>
+              🏆 Best: <strong id="bestStreak">0</strong> days
+            </div>
+          </div>
+          <button class="secondary" style="margin-top:8px;" id="reviveBtn">🩹 Revive streak (1×/week)</button>
+          <div class="muted" style="margin-top:4px;">Revive lets you fix one missed day per week for motivation.</div>
+        </div>
+        <div>
+          <div class="section-title">Last 7 days study graph</div>
+          <canvas id="progressChart"></canvas>
+          <div class="section-title" style="margin-top:10px;">Subject-wise time (current part)</div>
+          <canvas id="subjectChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Entries – <span id="entriesLabel">UPSC</span></div>
+      <div class="entries-list" id="entriesList"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Weekly Tests & Assessment
+        <button class="secondary" id="addTestBtn">＋ Add Test</button>
+      </div>
+      <div class="row">
+        <div>
+          <label for="testName">Test name</label>
+          <input id="testName" placeholder="Eg: UPSC Prelims mock, CSAT set 1" />
+        </div>
+        <div>
+          <label for="testScore">Score (%)</label>
+          <input id="testScore" type="number" min="0" max="100" />
+        </div>
+        <div>
+          <label for="testWeek">Week tag</label>
+          <input id="testWeek" placeholder="Eg: 2025-W01" />
+        </div>
+      </div>
+      <label for="testNotes" style="margin-top:8px;">What went wrong / pattern?</label>
+      <textarea id="testNotes" placeholder="Eg: Weak in history MCQs, silly mistakes in maths…"></textarea>
+      <div class="muted" style="margin-top:4px;">We’ll group tests by week so you can see patterns.</div>
+      <div id="testSummary" class="muted" style="margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">AI Helper (offline, simple)
+        <span class="muted">No internet / server – tips only</span>
+      </div>
+      <div class="ai-box">
+        <label for="aiQuestion">Ask for help</label>
+        <textarea id="aiQuestion" placeholder="Eg: How should I study history when my memory is weak?"></textarea>
+        <div class="row" style="margin-top:6px;">
+          <button class="secondary" id="aiBtn">✨ Get Tip</button>
+          <button class="secondary" id="aiReadBtn">🔊 Read Answer</button>
+        </div>
+        <div id="aiResponse" class="ai-response"></div>
+        <div class="muted" style="margin-top:4px;">
+          This AI is built-in and offline (rule-based). For deep answers, you can copy your question into ChatGPT or another open-source AI.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        YouTube / Audio Focus
+        <span class="muted">Play inside app + 15 min reminder</span>
+      </div>
+      <label for="ytLink">YouTube link</label>
+      <input id="ytLink" placeholder="Paste YouTube URL here (e.g. https://www.youtube.com/watch?v=...)" />
+      <div class="row" style="margin-top:8px;">
+        <button class="secondary" id="ytLoadBtn">📺 Load in app</button>
+        <button class="secondary" id="ytStartTimerBtn">⏱ Start 15 min timer</button>
+        <button class="secondary" id="ytStopTimerBtn">🛑 Stop timer</button>
+      </div>
+      <div class="muted" style="margin-top:4px;">
+        Video will play inside this app. For background audio, keep Karunamaayi open; some phones may pause when minimised.
+      </div>
+      <div style="margin-top:10px;">
+        <iframe id="ytFrame"
+                style="width:100%; aspect-ratio:16/9; border-radius:12px; border:none;"
+                src=""
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        Saved Resources
+        <span class="muted">Links saved from your 15-min sessions</span>
+      </div>
+      <div id="resourceList" class="entries-list"></div>
+      <div class="muted" style="margin-top:4px;">
+        Only links saved automatically when a 15-minute session finishes will appear here.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        Meditation (5–10 min Om)
+        <span class="muted">Best used in Meditation part</span>
+      </div>
+      <div class="muted" style="margin-bottom:8px;">
+        Hi! Let’s start – sit comfortably, close your eyes, and focus on the sound of Om.
+      </div>
+      <div class="row">
+        <button class="secondary" id="om5Btn">🕉 5 min Om</button>
+        <button class="secondary" id="om10Btn">🕉 10 min Om</button>
+        <button class="secondary" id="omStopBtn">⏹ Stop</button>
+      </div>
+      <div class="muted" id="omStatus" style="margin-top:6px;">Not playing.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    const APP_VERSION = '1.0.0';
+
+    const STORAGE_KEY = 'karu_logs_v1';
+    const SUBJECT_KEY = 'karu_subjects_v1';
+    const META_KEY = 'karu_meta_v1';
+    const PIN_KEY = 'karu_pin_v1';
+    const RESOURCE_KEY = 'karu_resources_v1';
+    const TEST_KEY = 'karu_tests_v1';
+
+    const defaultParts = ['UPSC','Career','Other Exams','Personal Work','Meditation'];
+
+    const defaultSubjects = {
+      'UPSC': ['Polity','Geography','Economy','History','Science','CSAT','Optional'],
+      'Career': ['Job Search','Skill Development','Networking'],
+      'Other Exams': ['Banking','Insurance','MBA Entrance'],
+      'Personal Work': ['Health','Family','Finance','Other'],
+      'Meditation': ['Breath','Om chanting','Gratitude']
+    };
+
+    let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let subjects = JSON.parse(localStorage.getItem(SUBJECT_KEY) || 'null') || defaultSubjects;
+    let meta = JSON.parse(localStorage.getItem(META_KEY) || 'null') || {
+      theme: 'light',
+      reminders: {},
+      reviveUsedWeek: null,
+      appVersion: APP_VERSION
+    };
+    let resources = JSON.parse(localStorage.getItem(RESOURCE_KEY) || '[]');
+    let tests = JSON.parse(localStorage.getItem(TEST_KEY) || '[]');
+
+    let currentPart = 'UPSC';
+    let chartInstance = null;
+    let subjectChartInstance = null;
+
+    // --- Login logic ---
+    const loginScreen = document.getElementById('loginScreen');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginSubtitle = document.getElementById('loginSubtitle');
+    const pinInput = document.getElementById('pinInput');
+    const loginError = document.getElementById('loginError');
+
+    function hasPin() {
+      return !!localStorage.getItem(PIN_KEY);
+    }
+
+    function weekIdFromDate(date) {
+      const d = new Date(date.getTime());
+      d.setHours(0,0,0,0);
+      const oneJan = new Date(d.getFullYear(),0,1);
+      const diff = d - oneJan + ((oneJan.getTimezoneOffset() - d.getTimezoneOffset())*60000);
+      const week = Math.floor(diff / (7*24*60*60*1000));
+      return d.getFullYear() + '-W' + String(week+1).padStart(2,'0');
+    }
+
+    function initLogin() {
+      if (!hasPin()) {
+        loginSubtitle.textContent = 'Set a 4-digit PIN to lock your tracker. Stored only on this device.';
+        loginBtn.textContent = 'Set PIN & Enter';
+      } else {
+        loginSubtitle.textContent = 'Enter your 4-digit PIN to unlock your tracker.';
+        loginBtn.textContent = 'Unlock';
+      }
+      loginBtn.addEventListener('click', () => {
+        const pin = pinInput.value.trim();
+        if (pin.length !== 4 || !/^[0-9]+$/.test(pin)) {
+          loginError.textContent = 'PIN must be 4 digits.';
+          return;
+        }
+        if (!hasPin()) {
+          localStorage.setItem(PIN_KEY, pin);
+          loginScreen.style.display = 'none';
+        } else {
+          const stored = localStorage.getItem(PIN_KEY);
+          if (stored === pin) {
+            loginScreen.style.display = 'none';
+          } else {
+            loginError.textContent = 'Incorrect PIN. Try again.';
+          }
+        }
+      });
+    }
+
+    // Theme
+    const themeSelect = document.getElementById('themeSelect');
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      meta.theme = theme;
+      localStorage.setItem(META_KEY, JSON.stringify(meta));
+    }
+    themeSelect.addEventListener('change', e => applyTheme(e.target.value));
+
+    // Version label
+    const versionLabel = document.getElementById('versionLabel');
+    if (versionLabel) versionLabel.textContent = 'v' + APP_VERSION;
+
+    // Part navigation
+    const partNav = document.getElementById('partNav');
+    const entriesLabel = document.getElementById('entriesLabel');
+    partNav.addEventListener('click', e => {
+      if (e.target.tagName !== 'BUTTON') return;
+      currentPart = e.target.getAttribute('data-part');
+      [...partNav.querySelectorAll('button')].forEach(btn => btn.classList.toggle('active', btn === e.target));
+      entriesLabel.textContent = currentPart;
+      renderSubjects();
+      renderEntries();
+      renderStreak();
+      renderChart();
+      renderSubjectChart();
+      renderResources();
+    });
+
+    // Subjects
+    const subjectSelect = document.getElementById('subjectSelect');
+    const subjectChips = document.getElementById('subjectChips');
+    const newSubjectInput = document.getElementById('newSubject');
+    const addSubjectBtn = document.getElementById('addSubjectBtn');
+
+    function renderSubjects() {
+      const list = subjects[currentPart] || [];
+      subjectSelect.innerHTML = '';
+      list.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        subjectSelect.appendChild(opt);
+      });
+      subjectChips.innerHTML = '';
+      list.forEach(s => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.innerHTML = `<span>${s}</span>`;
+        chip.addEventListener('click', () => {
+          subjectSelect.value = s;
+        });
+        subjectChips.appendChild(chip);
+      });
+      const info = document.createElement('div');
+      info.className = 'muted';
+      info.textContent = 'Tap to select. (Long-press to remove – optional if you implement)';
+      subjectChips.appendChild(info);
+    }
+
+    addSubjectBtn.addEventListener('click', () => {
+      const name = newSubjectInput.value.trim();
+      if (!name) return;
+      subjects[currentPart] = subjects[currentPart] || [];
+      if (!subjects[currentPart].includes(name)) {
+        subjects[currentPart].push(name);
+        localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
+        newSubjectInput.value = '';
+        renderSubjects();
+        subjectSelect.value = name;
+      }
+    });
+
+    // Save entry
+    const learningInput = document.getElementById('learningInput');
+    const timeInput = document.getElementById('timeInput');
+    const memoryInput = document.getElementById('memoryInput');
+    const reminderTime = document.getElementById('reminderTime');
+    const saveEntryBtn = document.getElementById('saveEntryBtn');
+    const entriesList = document.getElementById('entriesList');
+    const todayBadge = document.getElementById('todayBadge');
+
+    todayBadge.textContent = new Date().toLocaleDateString();
+
+    saveEntryBtn.addEventListener('click', () => {
+      const subject = subjectSelect.value || 'General';
+      const learning = learningInput.value.trim();
+      const time = Number(timeInput.value || 0);
+      const memory = Number(memoryInput.value || 3);
+
+      if (!learning) {
+        alert('Write at least one line about what you learned.');
+        return;
+      }
+
+      const entry = {
+        id: Date.now(),
+        part: currentPart,
+        subject,
+        learning,
+        time,
+        memory,
+        date: new Date().toISOString()
+      };
+      logs.push(entry);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+
+      if (reminderTime.value) {
+        meta.reminders[currentPart] = reminderTime.value;
+        localStorage.setItem(META_KEY, JSON.stringify(meta));
+      }
+
+      learningInput.value = '';
+      timeInput.value = '';
+      reminderTime.value = meta.reminders[currentPart] || '';
+
+      renderEntries();
+      renderStreak();
+      renderChart();
+      renderSubjectChart();
+      alert('Saved! Good job, Tilak.');
+    });
+
+    function renderEntries() {
+      entriesList.innerHTML = '';
+      const filtered = logs
+        .filter(l => l.part === currentPart)
+        .sort((a,b) => new Date(b.date) - new Date(a.date));
+      if (!filtered.length) {
+        entriesList.innerHTML = '<div class="muted">No entries yet for this part. Log today’s study to start.</div>';
+        return;
+      }
+      filtered.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        const d = new Date(e.date);
+        div.innerHTML = `<small>${d.toLocaleString()} • ${e.subject}</small>
+          <div>${e.learning.replace(/</g,'&lt;')}</div>
+          <small>Time: ${e.time || 0} mins • Memory: ${e.memory}/5</small>`;
+        entriesList.appendChild(div);
+      });
+    }
+
+    // Streak
+    const currentStreakEl = document.getElementById('currentStreak');
+    const bestStreakEl = document.getElementById('bestStreak');
+    const reviveBtn = document.getElementById('reviveBtn');
+
+    function getPartDays(part) {
+      const set = new Set();
+      logs.filter(l => l.part === part).forEach(l => {
+        const d = new Date(l.date);
+        d.setHours(0,0,0,0);
+        set.add(d.getTime());
+      });
+      return Array.from(set).sort();
+    }
+
+    function computeStreak(part) {
+      const days = getPartDays(part);
+      if (!days.length) return {current:0,best:0};
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      let current = 0;
+      let best = 1;
+      let prevDay = null;
+      days.forEach(ts => {
+        const d = new Date(ts);
+        if (!prevDay) {
+          prevDay = d; current = 1; best = 1; return;
+        }
+        const diffDays = Math.round((d - prevDay) / (24*60*60*1000));
+        if (diffDays === 1) current++;
+        else if (diffDays > 1) current = 1;
+        if (current > best) best = current;
+        prevDay = d;
+      });
+      const lastDay = new Date(days[days.length-1]);
+      const diffFromToday = Math.round((today - lastDay) / (24*60*60*1000));
+      if (diffFromToday > 1) current = 0;
+      return {current,best};
+    }
+
+    function renderStreak() {
+      const {current,best} = computeStreak(currentPart);
+      currentStreakEl.textContent = current;
+      bestStreakEl.textContent = best;
+    }
+
+    reviveBtn.addEventListener('click', () => {
+      const now = new Date();
+      const thisWeek = weekIdFromDate(now);
+      if (meta.reviveUsedWeek === thisWeek) {
+        alert('You already used revive once this week.');
+        return;
+      }
+      const yesterday = new Date(now.getTime() - 24*60*60*1000);
+      yesterday.setHours(12,0,0,0);
+      const days = getPartDays(currentPart);
+      const yts = yesterday.getTime();
+      if (!days.includes(yts)) {
+        logs.push({
+          id: Date.now() + 1,
+          part: currentPart,
+          subject: 'Revive Day',
+          learning: 'Streak revive placeholder entry.',
+          time: 0,
+          memory: 3,
+          date: yesterday.toISOString()
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+      }
+      meta.reviveUsedWeek = thisWeek;
+      localStorage.setItem(META_KEY, JSON.stringify(meta));
+      renderStreak();
+      renderEntries();
+      renderChart();
+      renderSubjectChart();
+      alert('Your streak has been revived for this week!');
+    });
+
+    // Charts
+    const chartCanvas = document.getElementById('progressChart');
+    const subjectCanvas = document.getElementById('subjectChart');
+
+    function renderChart() {
+      const now = new Date();
+      const days = [];
+      const totals = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(now.getTime() - i*24*60*60*1000);
+        d.setHours(0,0,0,0);
+        days.push((d.getMonth()+1) + '/' + d.getDate());
+        const dayTotal = logs
+          .filter(l => l.part === currentPart && (new Date(l.date)).toDateString() === d.toDateString())
+          .reduce((sum,l)=>sum+(l.time||0),0);
+        totals.push(dayTotal);
+      }
+      if (!chartCanvas) return;
+      if (chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(chartCanvas, {
+        type: 'bar',
+        data: { labels: days, datasets: [{ label: 'Minutes studied', data: totals }] },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function renderSubjectChart() {
+      if (!subjectCanvas) return;
+      const map = {};
+      logs.filter(l => l.part === currentPart).forEach(l => {
+        const s = l.subject || 'General';
+        map[s] = (map[s] || 0) + (l.time || 0);
+      });
+      const labels = Object.keys(map);
+      const data = labels.map(k => map[k]);
+      if (subjectChartInstance) subjectChartInstance.destroy();
+      subjectChartInstance = new Chart(subjectCanvas, {
+        type: 'bar',
+        data: { labels, datasets: [{ label: 'Minutes studied', data }] },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    // Export / Import
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+
+    exportBtn.addEventListener('click', () => {
+      const data = { logs, subjects, meta, tests, resources };
+      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'karunamaayi_backup.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      alert('Backup exported as JSON. You can convert this to txt/docx/pdf if needed.');
+    });
+
+    importBtn.addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/json';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            logs = data.logs || [];
+            subjects = data.subjects || subjects;
+            meta = data.meta || meta;
+            tests = data.tests || tests;
+            resources = data.resources || resources;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+            localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
+            localStorage.setItem(META_KEY, JSON.stringify(meta));
+            localStorage.setItem(TEST_KEY, JSON.stringify(tests));
+            localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
+            applyTheme(meta.theme || 'light');
+            themeSelect.value = meta.theme || 'light';
+            renderSubjects();
+            renderEntries();
+            renderStreak();
+            renderChart();
+            renderSubjectChart();
+            renderTestSummary();
+            renderResources();
+            alert('Backup imported successfully.');
+          } catch (err) {
+            console.error(err);
+            alert('Could not import file. Make sure it is a valid backup JSON.');
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
+    // Tests
+    const testName = document.getElementById('testName');
+    const testScore = document.getElementById('testScore');
+    const testWeek = document.getElementById('testWeek');
+    const testNotes = document.getElementById('testNotes');
+    const testSummary = document.getElementById('testSummary');
+    const addTestBtn = document.getElementById('addTestBtn');
+
+    addTestBtn.addEventListener('click', () => {
+      const name = testName.value.trim();
+      const score = Number(testScore.value || 0);
+      const week = testWeek.value.trim() || weekIdFromDate(new Date());
+      const notes = testNotes.value.trim();
+      if (!name) { alert('Enter test name.'); return; }
+      const t = { id: Date.now(), name, score, week, notes };
+      tests.push(t);
+      localStorage.setItem(TEST_KEY, JSON.stringify(tests));
+      testName.value = '';
+      testScore.value = '';
+      testWeek.value = '';
+      testNotes.value = '';
+      renderTestSummary();
+      alert('Test saved.');
+    });
+
+    function renderTestSummary() {
+      if (!tests.length) {
+        testSummary.textContent = 'No tests logged yet.';
+        return;
+      }
+      const byWeek = {};
+      tests.forEach(t => {
+        byWeek[t.week] = byWeek[t.week] || [];
+        byWeek[t.week].push(t);
+      });
+      let html = '';
+      Object.keys(byWeek).sort().forEach(week => {
+        const arr = byWeek[week];
+        const avg = arr.reduce((s,t)=>s+(t.score||0),0)/arr.length;
+        html += `<div><strong>${week}</strong>: ${arr.length} test(s), avg score ${avg.toFixed(1)}%`;
+        const weak = arr.filter(t => t.score < 60);
+        if (weak.length) html += ` – Focus: ${weak.length} weak test(s)`;
+        html += '</div>';
+      });
+      testSummary.innerHTML = html;
+    }
+
+    // AI Helper + TTS
+    const aiQuestion = document.getElementById('aiQuestion');
+    const aiBtn = document.getElementById('aiBtn');
+    const aiResponse = document.getElementById('aiResponse');
+    const aiReadBtn = document.getElementById('aiReadBtn');
+
+    function aiReply(q) {
+      const text = q.toLowerCase();
+      if (!text.trim()) return 'Type a question about your study, habits, or planning.';
+      if (text.includes('history')) return 'For history with weak memory: (1) Use story-based videos first, then read a small section of Spectrum; (2) Make timeline notes with arrows instead of paragraphs; (3) Revise the same topic after 1 day, 3 days, and 7 days; (4) Practice 5 MCQs after each topic so your brain is forced to recall.';
+      if (text.includes('math') || text.includes('aptitude') || text.includes('csat')) return 'For maths/CSAT: (1) Focus only on basics: percentages, ratios, averages, and simple equations; (2) Do 10 questions a day, not 100 – small daily practice wins; (3) Mark questions you got wrong in a “mistake notebook” and redo them after 3 days; (4) In exam, attempt all comprehension questions first because they carry high marks even without strong maths.';
+      if (text.includes('science')) return 'For science: (1) Limit yourself to NCERT 6–10 diagrams and key boxes; (2) Focus on human body, diseases, nutrition, environment, and basic physics terms used in daily life; (3) Make tiny flashcards – one side term, other side meaning; (4) Connect every concept to a real-life example (e.g., lens → spectacles, friction → walking).';
+      if (text.includes('upsc') || text.includes('study plan') || text.includes('timetable')) return 'For UPSC with 1.5–2 hours a day: (1) 30 min concept video, (2) 40 min reading + short notes of same topic, (3) 10–15 min revision of yesterday, (4) If energy left, 5–10 MCQs. Protect your streak more than your total hours – consistency is your real power.';
+      if (text.includes('motivate') || text.includes('demotivate') || text.includes('tired')) return 'When you feel demotivated: (1) Do the smallest possible task – watch a 5-minute video or read half a page; (2) Mark it as done here so your streak continues; (3) Re-read your reasons for preparing UPSC; (4) Remember: even 20 minutes done with focus is better than a full day of regret.';
+      return 'Tip: Break your problem into tiny steps. Pick one topic, set a 25-minute timer, do only that, then log it here. If you tell me which subject or problem you are facing (history, maths, schedule, memory, etc.), I can give you a more specific micro-plan.';
+    }
+
+    aiBtn.addEventListener('click', () => {
+      const ans = aiReply(aiQuestion.value || '');
+      aiResponse.textContent = ans;
+    });
+
+    function speakTextInIndianEnglish(text) {
+      if (!('speechSynthesis' in window)) {
+        alert('Text-to-speech is not supported in this browser.');
+        return;
+      }
+      if (!text.trim()) {
+        alert('No answer to read yet.');
+        return;
+      }
+      const utter = new SpeechSynthesisUtterance(text);
+      let voices = speechSynthesis.getVoices();
+      function pickVoiceAndSpeak() {
+        voices = speechSynthesis.getVoices();
+        const indian = voices.find(v => v.lang === 'en-IN');
+        const english = voices.find(v => v.lang.startsWith('en')) || null;
+        if (indian) utter.voice = indian;
+        else if (english) utter.voice = english;
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utter);
+      }
+      if (!voices.length) {
+        speechSynthesis.onvoiceschanged = pickVoiceAndSpeak;
+      } else {
+        pickVoiceAndSpeak();
+      }
+    }
+
+    aiReadBtn.addEventListener('click', () => {
+      speakTextInIndianEnglish(aiResponse.textContent || '');
+    });
+
+    // YouTube / Audio Focus
+    const ytLink = document.getElementById('ytLink');
+    const ytLoadBtn = document.getElementById('ytLoadBtn');
+    const ytStartTimerBtn = document.getElementById('ytStartTimerBtn');
+    const ytStopTimerBtn = document.getElementById('ytStopTimerBtn');
+    const ytFrame = document.getElementById('ytFrame');
+    let ytTimerId = null;
+
+    function getEmbedUrlFromYoutubeLink(url) {
+      if (!url) return null;
+      url = url.trim();
+      if (url.includes('youtu.be/')) {
+        const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
+        return 'https://www.youtube.com/embed/' + id;
+      }
+      try {
+        const u = new URL(url);
+        const v = u.searchParams.get('v');
+        if (v) return 'https://www.youtube.com/embed/' + v;
+      } catch(e) {}
+      return null;
+    }
+
+    ytLoadBtn.addEventListener('click', () => {
+      const raw = ytLink.value;
+      const embed = getEmbedUrlFromYoutubeLink(raw);
+      if (!embed) {
+        alert('Please paste a valid YouTube link.');
+        return;
+      }
+      ytFrame.src = embed;
+    });
+
+    function onYtTimerComplete() {
+      ytTimerId = null;
+      alert('15 minutes completed – time to review what you watched or take a short break.');
+      const link = (ytLink.value || '').trim();
+      const subject = subjectSelect ? (subjectSelect.value || 'YouTube / Audio') : 'YouTube / Audio';
+      const now = new Date();
+      const entry = {
+        id: Date.now(),
+        part: currentPart,
+        subject,
+        learning: link ? ('Watched/listened: ' + link) : '15-minute focus session',
+        time: 15,
+        memory: 3,
+        date: now.toISOString()
+      };
+      logs.push(entry);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+      if (link) {
+        const res = {
+          id: Date.now() + 1,
+          part: currentPart,
+          subject,
+          link,
+          date: now.toISOString()
+        };
+        resources.push(res);
+        localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
+      }
+      renderEntries();
+      renderStreak();
+      renderChart();
+      renderSubjectChart();
+      renderResources();
+    }
+
+    function startYtTimer() {
+      if (ytTimerId) {
+        clearTimeout(ytTimerId);
+        ytTimerId = null;
+      }
+      ytTimerId = setTimeout(onYtTimerComplete, 15 * 60 * 1000);
+      alert('15-minute timer started.');
+    }
+
+    function stopYtTimer() {
+      if (ytTimerId) {
+        clearTimeout(ytTimerId);
+        ytTimerId = null;
+        alert('Timer stopped.');
+      } else {
+        alert('No active timer.');
+      }
+    }
+
+    ytStartTimerBtn.addEventListener('click', startYtTimer);
+    ytStopTimerBtn.addEventListener('click', stopYtTimer);
+
+    // Resources
+    const resourceList = document.getElementById('resourceList');
+    function renderResources() {
+      if (!resourceList) return;
+      resourceList.innerHTML = '';
+      const filtered = resources
+        .filter(r => r.part === currentPart)
+        .sort((a,b) => new Date(b.date) - new Date(a.date));
+      if (!filtered.length) {
+        resourceList.innerHTML = '<div class="muted">No resources saved yet for this part.</div>';
+        return;
+      }
+      filtered.forEach(r => {
+        const d = new Date(r.date);
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `
+          <small>${d.toLocaleString()} • ${r.subject || 'Resource'}</small>
+          <div style="word-break:break-all;">
+            <a href="${r.link}" target="_blank" rel="noopener noreferrer">${r.link}</a>
+          </div>
+        `;
+        resourceList.appendChild(div);
+      });
+    }
+
+    // Om meditation
+    const om5Btn = document.getElementById('om5Btn');
+    const om10Btn = document.getElementById('om10Btn');
+    const omStopBtn = document.getElementById('omStopBtn');
+    const omStatus = document.getElementById('omStatus');
+
+    let omAudioContext = null;
+    let omOsc1 = null;
+    let omOsc2 = null;
+    let omGain = null;
+    let omTimerId = null;
+
+    function startOm(minutes) {
+      stopOm();
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) {
+        alert('Your browser does not support the audio context needed for Om sound.');
+        return;
+      }
+      omAudioContext = new AC();
+      omOsc1 = omAudioContext.createOscillator();
+      omOsc2 = omAudioContext.createOscillator();
+      omGain = omAudioContext.createGain();
+
+      omOsc1.frequency.value = 136.1;
+      omOsc2.frequency.value = 272.2;
+      omOsc1.type = 'sine';
+      omOsc2.type = 'sine';
+
+      omOsc1.connect(omGain);
+      omOsc2.connect(omGain);
+      omGain.connect(omAudioContext.destination);
+
+      omGain.gain.setValueAtTime(0, omAudioContext.currentTime);
+      omGain.gain.linearRampToValueAtTime(0.15, omAudioContext.currentTime + 1);
+
+      omOsc1.start();
+      omOsc2.start();
+
+      const totalMs = minutes * 60 * 1000;
+      if (omStatus) omStatus.textContent = `Playing Om for ${minutes} minutes...`;
+      omTimerId = setTimeout(() => {
+        stopOm();
+        alert(`${minutes} minutes of Om meditation completed.`);
+      }, totalMs);
+    }
+
+    function stopOm() {
+      if (omTimerId) {
+        clearTimeout(omTimerId);
+        omTimerId = null;
+      }
+      if (omGain && omAudioContext) {
+        omGain.gain.cancelScheduledValues(omAudioContext.currentTime);
+        omGain.gain.linearRampToValueAtTime(0, omAudioContext.currentTime + 0.5);
+      }
+      if (omOsc1 && omAudioContext) {
+        omOsc1.stop(omAudioContext.currentTime + 0.5);
+        omOsc1.disconnect();
+        omOsc1 = null;
+      }
+      if (omOsc2 && omAudioContext) {
+        omOsc2.stop(omAudioContext.currentTime + 0.5);
+        omOsc2.disconnect();
+        omOsc2 = null;
+      }
+      if (omAudioContext && omAudioContext.close) {
+        setTimeout(() => {
+          omAudioContext.close();
+          omAudioContext = null;
+        }, 600);
+      }
+      if (omStatus) omStatus.textContent = 'Not playing.';
+    }
+
+    if (om5Btn && om10Btn && omStopBtn) {
+      om5Btn.addEventListener('click', () => startOm(5));
+      om10Btn.addEventListener('click', () => startOm(10));
+      omStopBtn.addEventListener('click', () => stopOm());
+    }
+
+    // Reminder check
+    function checkReminders() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      const currentTime = hh + ':' + mm;
+      for (const part of defaultParts) {
+        if (meta.reminders[part] === currentTime) {
+          alert(`Reminder: It is time for your ${part} session.`);
+        }
+      }
+    }
+    setInterval(checkReminders, 60 * 1000);
+
+    // Init
+    function init() {
+      applyTheme(meta.theme || 'light');
+      themeSelect.value = meta.theme || 'light';
+      renderSubjects();
+      renderEntries();
+      renderStreak();
+      renderChart();
+      renderSubjectChart();
+      renderTestSummary();
+      renderResources();
+      reminderTime.value = meta.reminders[currentPart] || '';
+      initLogin();
+      todayBadge.textContent = new Date().toLocaleDateString();
+    }
+
+    init();
+  </script>
+</body>
+</html>
