@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>karunamaayi</title>
-  <!-- Shiva icon embedded as base64 (placeholder shortened here – replace with your full string if needed) -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAEbkGNhQlgAARuQanVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNj..." />
+  <title>Karunamaayi</title>
+  <!-- Optional favicon (Shiva) – you can replace this with full base64 later -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zU..." />
   <style>
     :root {
       --bg: #f4f4f7;
@@ -233,7 +233,7 @@
         the path of success is always in construction
       </div>
       <div>
-        <h1>ಕರුණಾಮಯಿ</h1>
+        <h1>Karunamaayi</h1>
         <div class="muted">Private UPSC • Career • Other Exams • Personal Work • Meditation</div>
       </div>
       <div class="flex-between" style="gap:6px;">
@@ -402,14 +402,39 @@
       </div>
     </div>
 
+    <!-- NEW: Subject Resources (upload space + viewer space) -->
     <div class="card">
       <div class="section-title">
-        Saved Resources
-        <span class="muted">Links saved from your 15-min sessions</span>
+        Subject Resources
+        <span class="muted">Save links per subject & view them</span>
       </div>
-      <div id="resourceList" class="entries-list"></div>
-      <div class="muted" style="margin-top:4px;">
-        Only links saved automatically when a 15-minute session finishes will appear here.
+      <div class="row">
+        <div>
+          <label for="resTitle">Title / Label</label>
+          <input id="resTitle" placeholder="Eg: NCERT Polity Ch1 PDF" />
+
+          <label for="resLink" style="margin-top:6px;">Link (PDF / site / notes / video)</label>
+          <input id="resLink" placeholder="Paste URL here (Google Drive, NCERT, notes, YouTube…)" />
+
+          <button class="secondary" id="addResBtn" style="margin-top:8px;">＋ Add to this subject</button>
+
+          <div class="muted" style="margin-top:4px;">
+            Saved for this <strong>Part</strong> and <strong>Subject</strong> on this device only.
+          </div>
+
+          <div id="resourceList" class="entries-list" style="margin-top:8px;"></div>
+        </div>
+
+        <div>
+          <div class="muted" style="margin-bottom:4px;">Viewer</div>
+          <iframe id="resourceViewer"
+                  style="width:100%; min-height:220px; border-radius:12px; border:none;"
+                  src="">
+          </iframe>
+          <div class="muted" style="margin-top:4px;">
+            If some sites/PDFs block embedding, they may open in a new tab instead.
+          </div>
+        </div>
       </div>
     </div>
 
@@ -523,7 +548,6 @@
     }
     themeSelect.addEventListener('change', e => applyTheme(e.target.value));
 
-    // Version label
     const versionLabel = document.getElementById('versionLabel');
     if (versionLabel) versionLabel.textContent = 'v' + APP_VERSION;
 
@@ -565,12 +589,13 @@
         chip.innerHTML = `<span>${s}</span>`;
         chip.addEventListener('click', () => {
           subjectSelect.value = s;
+          renderResources();
         });
         subjectChips.appendChild(chip);
       });
       const info = document.createElement('div');
       info.className = 'muted';
-      info.textContent = 'Tap to select. (Long-press to remove – optional if you implement)';
+      info.textContent = 'Tap to select subject.';
       subjectChips.appendChild(info);
     }
 
@@ -801,7 +826,7 @@
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      alert('Backup exported as JSON. You can convert this to txt/docx/pdf if needed.');
+      alert('Backup exported as JSON.');
     });
 
     importBtn.addEventListener('click', () => {
@@ -1000,6 +1025,7 @@
           id: Date.now() + 1,
           part: currentPart,
           subject,
+          title: 'YouTube focus session',
           link,
           date: now.toISOString()
         };
@@ -1035,29 +1061,80 @@
     ytStartTimerBtn.addEventListener('click', startYtTimer);
     ytStopTimerBtn.addEventListener('click', stopYtTimer);
 
-    // Resources
+    // Resources (new)
     const resourceList = document.getElementById('resourceList');
+    const resourceViewer = document.getElementById('resourceViewer');
+    const resTitle = document.getElementById('resTitle');
+    const resLink = document.getElementById('resLink');
+    const addResBtn = document.getElementById('addResBtn');
+
     function renderResources() {
       if (!resourceList) return;
       resourceList.innerHTML = '';
+
+      const currentSubject = subjectSelect ? (subjectSelect.value || null) : null;
+
       const filtered = resources
-        .filter(r => r.part === currentPart)
+        .filter(r =>
+          r.part === currentPart &&
+          (!currentSubject || r.subject === currentSubject)
+        )
         .sort((a,b) => new Date(b.date) - new Date(a.date));
+
       if (!filtered.length) {
-        resourceList.innerHTML = '<div class="muted">No resources saved yet for this part.</div>';
+        resourceList.innerHTML = '<div class="muted">No resources saved yet for this part/subject.</div>';
+        if (resourceViewer) resourceViewer.src = '';
         return;
       }
+
       filtered.forEach(r => {
         const d = new Date(r.date);
         const div = document.createElement('div');
         div.className = 'entry';
         div.innerHTML = `
-          <small>${d.toLocaleString()} • ${r.subject || 'Resource'}</small>
-          <div style="word-break:break-all;">
-            <a href="${r.link}" target="_blank" rel="noopener noreferrer">${r.link}</a>
-          </div>
+          <small>${d.toLocaleString()} • ${r.subject}</small>
+          <div style="font-weight:600; margin-bottom:2px;">${r.title || 'Resource'}</div>
+          <div style="word-break:break-all; font-size:0.78rem;">${r.link}</div>
         `;
+        div.addEventListener('click', () => {
+          if (resourceViewer) {
+            try {
+              resourceViewer.src = r.link;
+            } catch (e) {
+              window.open(r.link, '_blank');
+            }
+          } else {
+            window.open(r.link, '_blank');
+          }
+        });
         resourceList.appendChild(div);
+      });
+    }
+
+    if (addResBtn) {
+      addResBtn.addEventListener('click', () => {
+        const title = (resTitle.value || '').trim() || 'Resource';
+        const link = (resLink.value || '').trim();
+        if (!link) {
+          alert('Paste a link first.');
+          return;
+        }
+        const subj = subjectSelect ? (subjectSelect.value || 'General') : 'General';
+        const now = new Date();
+        const res = {
+          id: Date.now(),
+          part: currentPart,
+          subject: subj,
+          title,
+          link,
+          date: now.toISOString()
+        };
+        resources.push(res);
+        localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
+        resTitle.value = '';
+        resLink.value = '';
+        renderResources();
+        alert('Resource saved for ' + currentPart + ' – ' + subj + '.');
       });
     }
 
@@ -1176,4 +1253,3 @@
   </script>
 </body>
 </html>
-
