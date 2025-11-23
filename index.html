@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karunamaayi</title>
-  <!-- Optional favicon placeholder -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAA..." />
   <style>
     :root {
       --bg: #edf2ff;
-      --bg-soft: #e0ebff;
       --card-bg: #ffffff;
       --text: #0f172a;
       --text-soft: #64748b;
@@ -20,7 +17,6 @@
     }
     [data-theme="dark"] {
       --bg: #020617;
-      --bg-soft: #020617;
       --card-bg: #020617;
       --text: #e5e7eb;
       --text-soft: #9ca3af;
@@ -30,7 +26,6 @@
       --border-soft: #1f2933;
     }
     * { box-sizing: border-box; }
-
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #dbeafe, #edf2ff);
@@ -38,36 +33,25 @@
       margin: 0;
       padding: 0;
     }
-
     h1,h2,h3 { margin: 0; }
-
     .app-shell {
       max-width: 1000px;
       margin: 0 auto;
       padding: 16px;
     }
-
-    .layout-header {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
+      margin-bottom: 8px;
     }
-
     .brand-block {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     .brand-logo {
       width: 40px;
       height: 40px;
@@ -81,32 +65,14 @@
       font-size: 1.1rem;
       box-shadow: 0 10px 25px rgba(15,23,42,0.35);
     }
-
     .brand-text h1 {
       font-size: 1.4rem;
       letter-spacing: 0.03em;
     }
-
     .brand-text .subtitle {
       font-size: 0.82rem;
       color: var(--text-soft);
     }
-
-    .quote-strip {
-      background: linear-gradient(to right, rgba(191,219,254,0.9), rgba(219,234,254,0.9));
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      color: #1e293b;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .quote-strip span.icon {
-      font-size: 0.9rem;
-    }
-
     .chip-pill {
       display: inline-flex;
       align-items: center;
@@ -116,7 +82,13 @@
       background: var(--accent-soft);
       color: var(--accent-strong);
     }
-
+    .theme-select {
+      font-size: 0.8rem;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+    }
     .card {
       background: var(--card-bg);
       border-radius: 18px;
@@ -125,23 +97,49 @@
         0 18px 40px rgba(15,23,42,0.08),
         0 0 0 1px rgba(148,163,184,0.12);
       margin-bottom: 16px;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
-
     .card:hover {
       transform: translateY(-2px);
       box-shadow:
         0 20px 45px rgba(15,23,42,0.12),
-        0 0 0 1px rgba(129,140,248,0.25);
+        0 0 0 1px rgba(129,140,248,0.2);
     }
-
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-soft);
+    }
+    .muted { font-size: 0.8rem; color: var(--text-soft); }
+    .pill-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill-nav button {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+    .pill-nav button.active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border-color: var(--accent);
+    }
     .row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
     .row > * { flex: 1 1 220px; }
-
     label {
       font-size: 0.82rem;
       font-weight: 600;
@@ -149,27 +147,22 @@
       margin-bottom: 4px;
       color: var(--text-soft);
     }
-
     input,select,textarea {
       width: 100%;
       padding: 8px 10px;
       border-radius: 10px;
       border: 1px solid var(--border-soft);
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.9);
       color: var(--text);
       font-size: 0.9rem;
       outline: none;
-      transition: border 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
-
     input:focus,select:focus,textarea:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(59,130,246,0.3);
+      box-shadow: 0 0 0 1px rgba(59,130,246,0.25);
       background: #ffffff;
     }
-
     textarea { resize: vertical; min-height: 60px; }
-
     button {
       border: none;
       border-radius: 999px;
@@ -182,7 +175,6 @@
       gap: 6px;
       background: var(--accent);
       color: white;
-      transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
       box-shadow: 0 10px 20px rgba(37,99,235,0.3);
     }
     button.secondary {
@@ -191,36 +183,7 @@
       box-shadow: none;
       border: 1px solid rgba(148,163,184,0.3);
     }
-    button:active {
-      transform: translateY(1px);
-      box-shadow: 0 6px 12px rgba(37,99,235,0.25);
-    }
-    button.secondary:active {
-      box-shadow: none;
-      transform: translateY(1px);
-    }
     button:disabled { opacity: 0.4; cursor: default; box-shadow: none; }
-
-    .pill-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .pill-nav button {
-      background: transparent;
-      color: var(--text-soft);
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 6px 12px;
-      font-size: 0.82rem;
-      box-shadow: none;
-    }
-    .pill-nav button.active {
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      border-color: var(--accent);
-    }
-
     .badge {
       display: inline-flex;
       align-items: center;
@@ -231,13 +194,11 @@
       color: var(--accent-strong);
       gap: 4px;
     }
-
     .entries-list {
       max-height: 260px;
       overflow-y: auto;
       padding-right: 4px;
     }
-
     .entry {
       border-radius: 12px;
       padding: 8px 10px;
@@ -245,21 +206,17 @@
       background: rgba(148,163,184,0.08);
       font-size: 0.82rem;
       border: 1px solid rgba(148,163,184,0.14);
-      cursor: default;
     }
-
+    .entry.small-padding { padding: 6px 8px; }
     .entry.clickable {
       cursor: pointer;
-      transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
+      transition: background 0.12s ease, transform 0.08s ease;
     }
     .entry.clickable:hover {
       background: rgba(129,140,248,0.12);
       transform: translateY(-1px);
-      box-shadow: 0 10px 18px rgba(15,23,42,0.18);
     }
-
     .entry small { display: block; opacity: 0.7; }
-
     .streak {
       display: flex;
       gap: 10px;
@@ -267,7 +224,6 @@
       font-size: 0.85rem;
     }
     .streak strong { font-size: 1.1rem; }
-
     .chip-row {
       display: flex;
       flex-wrap: wrap;
@@ -280,91 +236,43 @@
       border: 1px dashed #9ca3af;
       font-size: 0.75rem;
       cursor: pointer;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.8);
     }
+    canvas { width: 100%; max-height: 220px; }
+    iframe { background: #020617; border-radius: 12px; border: none; }
 
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text-soft);
-    }
-
-    .muted { font-size: 0.8rem; color: var(--text-soft); }
-
-    .theme-select { font-size: 0.8rem; }
-
-    .login-screen {
+    /* Subject overlay */
+    .overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at top, #1d4ed8, #020617);
-      display: flex;
+      background: rgba(15,23,42,0.7);
+      display: none;
       align-items: center;
       justify-content: center;
-      z-index: 50;
+      z-index: 40;
+      padding: 12px;
     }
-    .login-card {
-      background: rgba(15,23,42,0.96);
-      padding: 22px 20px 18px;
-      border-radius: 20px;
-      width: min(360px, 100% - 32px);
-      color: #e5e7eb;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-    }
-    .login-card h1 {
-      font-size: 1.35rem;
-      margin-bottom: 6px;
-    }
-    .login-card p { font-size: 0.85rem; opacity: 0.8; }
-    .login-card input {
-      border-color: #1f2937;
-      background: rgba(15,23,42,0.9);
-      color: #e5e7eb;
-    }
-    .login-card button {
+    .overlay-card {
+      max-width: 1000px;
       width: 100%;
-      justify-content: center;
-      margin-top: 10px;
+      max-height: 95vh;
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 24px 60px rgba(15,23,42,0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .error-text { color: #fca5a5; font-size: 0.78rem; min-height: 1em; }
-
-    .ai-box textarea { min-height: 70px; }
-    .ai-response {
-      font-size: 0.8rem;
-      margin-top: 6px;
-      padding: 8px;
-      border-radius: 10px;
-      background: rgba(148,163,184,0.12);
-      border: 1px solid rgba(148,163,184,0.25);
+    .overlay-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      height: 100%;
     }
-
-    canvas { width: 100%; max-height: 220px; }
-
-    iframe {
-      background: #020617;
-    }
-
-    .quicklink-btn {
-      width: 100%;
-      justify-content: flex-start;
-      padding-inline: 10px;
-      font-size: 0.83rem;
-      box-shadow: none;
-      border-radius: 999px;
-      background: rgba(219,234,254,0.85);
-      color: #1d4ed8;
-    }
-    .quicklink-btn span.url {
-      font-size: 0.75rem;
-      color: #64748b;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 160px;
-    }
+    .overlay-body > * { flex: 1 1 260px; min-height: 200px; }
+    .overlay .entries-list { max-height: none; height: 100%; }
+    .overlay iframe { width: 100%; height: 100%; }
 
     @media (max-width: 640px) {
       .top-bar { align-items: flex-start; }
@@ -373,297 +281,323 @@
   </style>
 </head>
 <body data-theme="light">
-  <!-- Login -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-card">
-      <div class="muted" style="text-align:center; margin-bottom:10px; font-size:0.9rem;">
-        "You are the architect of your life"
-      </div>
-      <h1>Welcome, Tilak 👋</h1>
-      <div class="muted" style="text-align:center; margin-bottom:8px; font-size:0.9rem;">
-        Hi! Let’s start
-      </div>
-      <p id="loginSubtitle">Set a 4-digit PIN to lock your tracker. This is stored only on this device.</p>
-      <div style="margin-top:10px;">
-        <label for="pinInput">PIN</label>
-        <input id="pinInput" type="password" maxlength="4" inputmode="numeric" />
-      </div>
-      <div class="error-text" id="loginError"></div>
-      <button id="loginBtn">Continue</button>
-    </div>
-  </div>
-
   <div class="app-shell">
-    <div class="layout-header">
-      <div class="top-bar">
-        <div class="brand-block">
-          <div class="brand-logo">K</div>
-          <div class="brand-text">
-            <h1>Karunamaayi</h1>
-            <div class="subtitle">UPSC • Career • Other Exams • Personal • Meditation</div>
-          </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <span class="chip-pill">v<span id="versionLabel">1.1.0</span></span>
-          <select id="themeSelect" class="theme-select">
-            <option value="light">🌞 Light</option>
-            <option value="dark">🌙 Dark</option>
-          </select>
-          <button class="secondary" id="exportBtn">⬇ Export</button>
-          <button class="secondary" id="importBtn">⬆ Import</button>
+    <!-- Header -->
+    <div class="top-bar">
+      <div class="brand-block">
+        <div class="brand-logo">K</div>
+        <div class="brand-text">
+          <h1>Karunamaayi</h1>
+          <div class="subtitle">UPSC • Career • Exams • Personal • Meditation</div>
         </div>
       </div>
-      <div class="quote-strip">
-        <span class="icon">🚧</span>
-        <span>the path of success is always in construction</span>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span class="chip-pill">v<span id="versionLabel">1.3.0</span></span>
+        <select id="themeSelect" class="theme-select">
+          <option value="light">🌞 Light</option>
+          <option value="dark">🌙 Dark</option>
+        </select>
       </div>
     </div>
 
+    <!-- Menu bar -->
     <div class="card">
       <div class="section-title">
-        Area / Part
-        <span class="muted">Tap to switch focus</span>
+        Menu
+        <span class="muted">Choose area or admin</span>
       </div>
-      <div class="pill-nav" id="partNav">
-        <button data-part="UPSC" class="active">UPSC</button>
-        <button data-part="Career">Career</button>
-        <button data-part="Other Exams">Other Exams</button>
-        <button data-part="Personal Work">Personal</button>
-        <button data-part="Meditation">Meditation</button>
-      </div>
-    </div>
-
-    <!-- NEW: Quick links to other apps/sites -->
-    <div class="card">
-      <div class="section-title">
-        Quick Launch
-        <span class="muted">Save links to apps/sites you use often</span>
-      </div>
-      <div class="row">
-        <div>
-          <label for="qlName">Name</label>
-          <input id="qlName" placeholder="Eg: UPSC Official, YouTube Study, Notes Drive" />
-        </div>
-        <div>
-          <label for="qlUrl">Link</label>
-          <input id="qlUrl" placeholder="Eg: https://www.upsc.gov.in / https://..." />
-        </div>
-        <div style="flex:0 0 130px; display:flex; align-items:flex-end;">
-          <button class="secondary" id="qlAddBtn">＋ Save link</button>
-        </div>
-      </div>
-      <div class="muted" style="margin-top:4px;">
-        These links are stored on this device only.
-      </div>
-      <div id="quicklinkList" class="entries-list" style="margin-top:8px;"></div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">
-        Today’s Entry
-        <span class="badge" id="todayBadge">Today</span>
-      </div>
-      <div class="row">
-        <div>
-          <label for="subjectSelect">Subject / Topic</label>
-          <select id="subjectSelect"></select>
-          <div class="chip-row" id="subjectChips"></div>
-          <div class="row" style="margin-top:6px;">
-            <div>
-              <input id="newSubject" placeholder="Add new subject" />
-            </div>
-            <div style="flex:0 0 110px;">
-              <button class="secondary" id="addSubjectBtn">＋ Subject</button>
-            </div>
-          </div>
-        </div>
-        <div>
-          <label for="timeInput">Time Studied (mins)</label>
-          <input id="timeInput" type="number" min="0" />
-        </div>
-        <div>
-          <label for="memoryInput">Memory (1–5)</label>
-          <select id="memoryInput">
-            <option value="1">1 – Very low</option>
-            <option value="2">2</option>
-            <option value="3" selected>3 – Okay</option>
-            <option value="4">4</option>
-            <option value="5">5 – Strong</option>
-          </select>
-        </div>
-      </div>
-      <label for="learningInput" style="margin-top:10px;">What did you learn?</label>
-      <textarea id="learningInput" placeholder="Example: Watched Polity basics (Fundamental Rights) – key points…"></textarea>
-      <div class="row" style="margin-top:10px; align-items:flex-end;">
-        <div>
-          <label for="reminderTime">Reminder (optional)</label>
-          <input id="reminderTime" type="time" />
-          <div class="muted">We’ll remind you if the app is open around this time.</div>
-        </div>
-        <div style="flex:0 0 160px;">
-          <button id="saveEntryBtn">💾 Save Entry</button>
-        </div>
+      <div class="pill-nav" id="mainNav">
+        <button data-nav="home" class="active">🏠 Home</button>
+        <button data-nav="UPSC">UPSC</button>
+        <button data-nav="Career">Career</button>
+        <button data-nav="Other Exams">Other Exams</button>
+        <button data-nav="Personal Work">Personal</button>
+        <button data-nav="Meditation">Meditation</button>
+        <button data-nav="tests">Weekly Tests</button>
+        <button data-nav="admin">Admin</button>
       </div>
     </div>
 
-    <div class="card">
-      <div class="row">
-        <div>
-          <div class="section-title">Streak & Progress</div>
-          <div class="streak">
-            <div>
-              🔥 Current: <strong id="currentStreak">0</strong> days<br/>
-              🏆 Best: <strong id="bestStreak">0</strong> days
-            </div>
-          </div>
-          <button class="secondary" style="margin-top:8px;" id="reviveBtn">🩹 Revive streak (1×/week)</button>
-          <div class="muted" style="margin-top:4px;">Revive lets you fix one missed day per week for motivation.</div>
+    <!-- HOME PAGE -->
+    <div id="page-home">
+      <div class="card">
+        <div class="section-title">
+          AI Helper (offline, simple)
+          <span class="muted">Use this on landing page anytime</span>
         </div>
-        <div>
-          <div class="section-title">Last 7 days study (mins)</div>
-          <canvas id="progressChart"></canvas>
-          <div class="section-title" style="margin-top:10px;">Subject-wise time (current part)</div>
-          <canvas id="subjectChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">Entries – <span id="entriesLabel">UPSC</span></div>
-      <div class="entries-list" id="entriesList"></div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">Weekly Tests & Assessment
-        <button class="secondary" id="addTestBtn">＋ Add Test</button>
-      </div>
-      <div class="row">
-        <div>
-          <label for="testName">Test name</label>
-          <input id="testName" placeholder="Eg: UPSC Prelims mock, CSAT set 1" />
-        </div>
-        <div>
-          <label for="testScore">Score (%)</label>
-          <input id="testScore" type="number" min="0" max="100" />
-        </div>
-        <div>
-          <label for="testWeek">Week tag</label>
-          <input id="testWeek" placeholder="Eg: 2025-W01" />
-        </div>
-      </div>
-      <label for="testNotes" style="margin-top:8px;">What went wrong / pattern?</label>
-      <textarea id="testNotes" placeholder="Eg: Weak in history MCQs, silly mistakes in maths…"></textarea>
-      <div class="muted" style="margin-top:4px;">We’ll group tests by week so you can see patterns.</div>
-      <div id="testSummary" class="muted" style="margin-top:8px;"></div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">AI Helper (offline, simple)
-        <span class="muted">No internet / server – tips only</span>
-      </div>
-      <div class="ai-box">
         <label for="aiQuestion">Ask for help</label>
         <textarea id="aiQuestion" placeholder="Eg: How should I study history when my memory is weak?"></textarea>
         <div class="row" style="margin-top:6px;">
           <button class="secondary" id="aiBtn">✨ Get Tip</button>
           <button class="secondary" id="aiReadBtn">🔊 Read Answer</button>
         </div>
-        <div id="aiResponse" class="ai-response"></div>
+        <div id="aiResponse" class="entry" style="margin-top:6px;"></div>
         <div class="muted" style="margin-top:4px;">
-          This AI is rule-based inside the app. For deep answers, you can copy your question into ChatGPT or another AI.
+          This AI is rule-based inside the app. For deeper analysis, you can still ask ChatGPT.
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <div class="section-title">
-        YouTube / Audio Focus
-        <span class="muted">Play inside app + 15 min reminder</span>
-      </div>
-      <label for="ytLink">YouTube link</label>
-      <input id="ytLink" placeholder="Paste YouTube URL here (e.g. https://www.youtube.com/watch?v=...)" />
-      <div class="row" style="margin-top:8px;">
-        <button class="secondary" id="ytLoadBtn">📺 Load in app</button>
-        <button class="secondary" id="ytStartTimerBtn">⏱ Start 15 min timer</button>
-        <button class="secondary" id="ytStopTimerBtn">🛑 Stop timer</button>
-      </div>
-      <div class="muted" style="margin-top:4px;">
-        Video will play inside this app. For background audio, keep Karunamaayi open; some phones may pause when minimised.
-      </div>
-      <div style="margin-top:10px;">
-        <iframe id="ytFrame"
-                style="width:100%; aspect-ratio:16/9; border-radius:12px; border:none;"
-                src=""
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-
-    <!-- Subject Resources (upload space + viewer space) -->
-    <div class="card">
-      <div class="section-title">
-        Subject Resources
-        <span class="muted">Save links per subject & view them</span>
-      </div>
-      <div class="row">
-        <div>
-          <label for="resTitle">Title / Label</label>
-          <input id="resTitle" placeholder="Eg: NCERT Polity Ch1 PDF" />
-
-          <label for="resLink" style="margin-top:6px;">Link (PDF / site / notes / video)</label>
-          <input id="resLink" placeholder="Paste URL here (Google Drive, NCERT, notes, YouTube…)" />
-
-          <button class="secondary" id="addResBtn" style="margin-top:8px;">＋ Add to this subject</button>
-
-          <div class="muted" style="margin-top:4px;">
-            Saved for this <strong>Part</strong> and <strong>Subject</strong> on this device only.
-          </div>
-
-          <div id="resourceList" class="entries-list" style="margin-top:8px;"></div>
+      <div class="card">
+        <div class="section-title">
+          Meditation (Om)
+          <span class="muted">Use your favourite Om link (Art of Living, Sadhguru, etc.)</span>
         </div>
-
-        <div>
-          <div class="muted" style="margin-bottom:4px;">Viewer</div>
-          <iframe id="resourceViewer"
-                  style="width:100%; min-height:220px; border-radius:12px; border:none;"
+        <label for="omLink">Om audio / video link (YouTube)</label>
+        <input id="omLink" placeholder="Paste Om chanting YouTube link here" />
+        <div class="row" style="margin-top:8px;">
+          <button class="secondary" id="om5Btn">🕉 Play Om – 5 min</button>
+          <button class="secondary" id="om10Btn">🕉 Play Om – 10 min</button>
+          <button class="secondary" id="omStopBtn">⏹ Stop</button>
+        </div>
+        <div class="muted" id="omStatus" style="margin-top:6px;">Not playing.</div>
+        <div style="margin-top:10px;">
+          <iframe id="omFrame"
+                  style="width:100%; aspect-ratio:16/9;"
                   src="">
           </iframe>
-          <div class="muted" style="margin-top:4px;">
-            If some sites/PDFs block embedding, they may open in a new tab instead.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          Today’s Entry – <span id="homePartLabel">UPSC</span>
+          <span class="badge" id="todayBadge">Today</span>
+        </div>
+        <div class="row">
+          <div>
+            <label for="subjectSelect">Subject / Topic</label>
+            <select id="subjectSelect"></select>
+          </div>
+          <div>
+            <label for="timeInput">Time Studied (mins)</label>
+            <input id="timeInput" type="number" min="0" />
+          </div>
+          <div>
+            <label for="memoryInput">Memory (1–5)</label>
+            <select id="memoryInput">
+              <option value="1">1 – Very low</option>
+              <option value="2">2</option>
+              <option value="3" selected>3 – Okay</option>
+              <option value="4">4</option>
+              <option value="5">5 – Strong</option>
+            </select>
+          </div>
+        </div>
+        <label for="learningInput" style="margin-top:10px;">What did you learn?</label>
+        <textarea id="learningInput" placeholder="Example: Polity – Fundamental Rights basics…"></textarea>
+        <div class="row" style="margin-top:10px; align-items:flex-end;">
+          <div>
+            <label for="reminderTime">Reminder (optional for this part)</label>
+            <input id="reminderTime" type="time" />
+            <div class="muted">We’ll remind you if the app is open around this time.</div>
+          </div>
+          <div style="flex:0 0 160px;">
+            <button id="saveEntryBtn">💾 Save Entry</button>
           </div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="section-title">Streak & Progress – <span id="homePartLabel2">UPSC</span></div>
+            <div class="streak">
+              <div>
+                🔥 Current: <strong id="currentStreak">0</strong> days<br/>
+                🏆 Best: <strong id="bestStreak">0</strong> days
+              </div>
+            </div>
+            <button class="secondary" style="margin-top:8px;" id="reviveBtn">🩹 Revive streak (1×/week)</button>
+            <div class="muted" style="margin-top:4px;">Revive lets you fix one missed day per week for motivation.</div>
+          </div>
+          <div>
+            <div class="section-title">Last 7 days study (mins)</div>
+            <canvas id="progressChart"></canvas>
+            <div class="section-title" style="margin-top:10px;">Subject-wise time (current part)</div>
+            <canvas id="subjectChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Entries – <span id="entriesLabel">UPSC</span></div>
+        <div class="entries-list" id="entriesList"></div>
+      </div>
     </div>
 
-    <div class="card">
+    <!-- PART PAGE: shows only subjects list -->
+    <div id="page-part" style="display:none;">
+      <div class="card">
+        <div class="section-title">
+          <span id="partTitle">UPSC workspace</span>
+          <button class="secondary" id="backToHomeBtn">← Back to Home</button>
+        </div>
+        <div class="muted" id="partSubtitle">
+          Choose a subject to open its full-screen resources.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          Subjects in this part
+          <span class="muted">Tap a subject to open resources</span>
+        </div>
+        <div class="chip-row" id="partSubjectsList"></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY TESTS PAGE -->
+    <div id="page-tests" style="display:none;">
+      <div class="card">
+        <div class="section-title">
+          Weekly Tests & Assessment
+          <button class="secondary" id="backTestsHomeBtn">← Back to Home</button>
+        </div>
+        <div class="row">
+          <div>
+            <label for="testName">Test name</label>
+            <input id="testName" placeholder="Eg: UPSC Prelims mock, CSAT set 1" />
+          </div>
+          <div>
+            <label for="testScore">Score (%)</label>
+            <input id="testScore" type="number" min="0" max="100" />
+          </div>
+          <div>
+            <label for="testWeek">Week tag</label>
+            <input id="testWeek" placeholder="Eg: 2025-W01" />
+          </div>
+        </div>
+        <label for="testNotes" style="margin-top:8px;">What went wrong / pattern?</label>
+        <textarea id="testNotes" placeholder="Eg: Weak in history MCQs, silly mistakes in maths…"></textarea>
+        <div class="muted" style="margin-top:4px;">We’ll group tests by week so you can see patterns.</div>
+        <div style="margin-top:8px;">
+          <button class="secondary" id="addTestBtn">＋ Add Test</button>
+        </div>
+        <div id="testSummary" class="muted" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <!-- ADMIN PAGE -->
+    <div id="page-admin" style="display:none;">
+      <div class="card">
+        <div class="section-title">
+          Admin – Subjects & Resources
+          <span class="muted">Add subjects, and upload links for each subject</span>
+        </div>
+        <div class="row">
+          <div>
+            <label for="adminPartSelect">Part / Area</label>
+            <select id="adminPartSelect"></select>
+          </div>
+          <div>
+            <label for="adminSubjectSelect">Subject</label>
+            <select id="adminSubjectSelect"></select>
+          </div>
+        </div>
+        <div class="row" style="margin-top:6px;">
+          <div>
+            <label for="adminNewSubject">Add new subject</label>
+            <input id="adminNewSubject" placeholder="Eg: Modern History / Quant / Reasoning" />
+          </div>
+          <div style="flex:0 0 140px; display:flex; gap:6px; align-items:flex-end;">
+            <button class="secondary" id="adminAddSubjectBtn">＋ Add</button>
+            <button class="secondary" id="adminDeleteSubjectBtn">✕ Delete</button>
+          </div>
+        </div>
+        <hr style="margin:12px 0; border:none; border-top:1px solid var(--border-soft);">
+        <div class="row">
+          <div>
+            <label for="resTitle">Resource title</label>
+            <input id="resTitle" placeholder="Eg: NCERT Polity Ch1 PDF" />
+            <label for="resLink" style="margin-top:6px;">Link (PDF / site / notes / video)</label>
+            <input id="resLink" placeholder="Paste URL here (Drive, NCERT, notes, YouTube…)" />
+            <button class="secondary" id="addResBtn" style="margin-top:8px;">＋ Add resource</button>
+            <div class="muted" style="margin-top:4px;">
+              Saved for the selected <strong>Part</strong> and <strong>Subject</strong>.  
+              You must choose subject yourself – app will not choose automatically.
+            </div>
+            <div id="adminResourceList" class="entries-list" style="margin-top:8px;"></div>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:4px;">Preview</div>
+            <iframe id="adminResourceViewer" style="width:100%; min-height:220px;"></iframe>
+            <div class="muted" style="margin-top:4px;">
+              If some sites/PDFs block embedding, they may open in a new tab instead.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          YouTube / Audio Focus (Admin)
+          <span class="muted">15-min focus timer, logs under current part</span>
+        </div>
+        <label for="ytLink">YouTube link</label>
+        <input id="ytLink" placeholder="Paste YouTube URL here (https://www.youtube.com/watch?v=...)" />
+        <div class="row" style="margin-top:8px;">
+          <button class="secondary" id="ytLoadBtn">📺 Load in app</button>
+          <button class="secondary" id="ytStartTimerBtn">⏱ Start 15 min timer</button>
+          <button class="secondary" id="ytStopTimerBtn">🛑 Stop timer</button>
+        </div>
+        <div class="muted" style="margin-top:4px;">
+          Timer entries will be logged under whichever part is selected in the top menu (UPSC, Career, etc).
+        </div>
+        <div style="margin-top:10px;">
+          <iframe id="ytFrame"
+                  style="width:100%; aspect-ratio:16/9;"
+                  src=""
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          Backup & Restore
+          <span class="muted">Export/Import all your data</span>
+        </div>
+        <div class="row">
+          <button class="secondary" id="exportBtn">⬇ Export backup</button>
+          <button class="secondary" id="importBtn">⬆ Import backup</button>
+        </div>
+        <div class="muted" style="margin-top:4px;">
+          This includes logs, subjects, resources, tests, reminders and settings.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subject full-screen overlay -->
+  <div class="overlay" id="subjectOverlay">
+    <div class="overlay-card">
       <div class="section-title">
-        Meditation (5–10 min Om)
-        <span class="muted">Best used in Meditation part</span>
+        <span id="subjectOverlayTitle">UPSC • Subject</span>
+        <button class="secondary" id="subjectOverlayCloseBtn">✕ Close</button>
       </div>
-      <div class="muted" style="margin-bottom:8px;">
-        Hi! Let’s start – sit comfortably, close your eyes, and focus on the sound of Om.
+      <div class="overlay-body">
+        <div>
+          <div class="muted" style="margin-bottom:4px;">Resources list</div>
+          <div id="subjectResourceList" class="entries-list"></div>
+        </div>
+        <div>
+          <div class="muted" style="margin-bottom:4px;">Viewer</div>
+          <iframe id="subjectResourceViewer"></iframe>
+        </div>
       </div>
-      <div class="row">
-        <button class="secondary" id="om5Btn">🕉 5 min Om</button>
-        <button class="secondary" id="om10Btn">🕉 10 min Om</button>
-        <button class="secondary" id="omStopBtn">⏹ Stop</button>
-      </div>
-      <div class="muted" id="omStatus" style="margin-top:6px;">Not playing.</div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script>
-    const APP_VERSION = '1.1.0';
+    const APP_VERSION = '1.3.0';
 
     const STORAGE_KEY = 'karu_logs_v1';
     const SUBJECT_KEY = 'karu_subjects_v1';
     const META_KEY = 'karu_meta_v1';
-    const PIN_KEY = 'karu_pin_v1';
     const RESOURCE_KEY = 'karu_resources_v1';
     const TEST_KEY = 'karu_tests_v1';
-    const QUICKLINK_KEY = 'karu_quicklinks_v1';
 
     const defaultParts = ['UPSC','Career','Other Exams','Personal Work','Meditation'];
 
@@ -685,23 +619,167 @@
     };
     let resources = JSON.parse(localStorage.getItem(RESOURCE_KEY) || '[]');
     let tests = JSON.parse(localStorage.getItem(TEST_KEY) || '[]');
-    let quicklinks = JSON.parse(localStorage.getItem(QUICKLINK_KEY) || '[]');
 
     let currentPart = 'UPSC';
     let chartInstance = null;
     let subjectChartInstance = null;
+    let ytTimerId = null;
+    let omTimerId = null;
+    let overlayPart = null;
+    let overlaySubject = null;
 
-    // --- Login logic ---
-    const loginScreen = document.getElementById('loginScreen');
-    const loginBtn = document.getElementById('loginBtn');
-    const loginSubtitle = document.getElementById('loginSubtitle');
-    const pinInput = document.getElementById('pinInput');
-    const loginError = document.getElementById('loginError');
+    // Elements
+    const themeSelect = document.getElementById('themeSelect');
+    const versionLabel = document.getElementById('versionLabel');
+    const mainNav = document.getElementById('mainNav');
 
-    function hasPin() {
-      return !!localStorage.getItem(PIN_KEY);
+    const pageHome = document.getElementById('page-home');
+    const pagePart = document.getElementById('page-part');
+    const pageTests = document.getElementById('page-tests');
+    const pageAdmin = document.getElementById('page-admin');
+
+    const homePartLabel = document.getElementById('homePartLabel');
+    const homePartLabel2 = document.getElementById('homePartLabel2');
+    const partTitle = document.getElementById('partTitle');
+    const partSubtitle = document.getElementById('partSubtitle');
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+    const backTestsHomeBtn = document.getElementById('backTestsHomeBtn');
+
+    const subjectSelect = document.getElementById('subjectSelect');
+    const partSubjectsList = document.getElementById('partSubjectsList');
+
+    const learningInput = document.getElementById('learningInput');
+    const timeInput = document.getElementById('timeInput');
+    const memoryInput = document.getElementById('memoryInput');
+    const reminderTime = document.getElementById('reminderTime');
+    const saveEntryBtn = document.getElementById('saveEntryBtn');
+    const entriesList = document.getElementById('entriesList');
+    const todayBadge = document.getElementById('todayBadge');
+    const entriesLabel = document.getElementById('entriesLabel');
+
+    const currentStreakEl = document.getElementById('currentStreak');
+    const bestStreakEl = document.getElementById('bestStreak');
+    const reviveBtn = document.getElementById('reviveBtn');
+    const chartCanvas = document.getElementById('progressChart');
+    const subjectCanvas = document.getElementById('subjectChart');
+
+    const testName = document.getElementById('testName');
+    const testScore = document.getElementById('testScore');
+    const testWeek = document.getElementById('testWeek');
+    const testNotes = document.getElementById('testNotes');
+    const testSummary = document.getElementById('testSummary');
+    const addTestBtn = document.getElementById('addTestBtn');
+
+    const aiQuestion = document.getElementById('aiQuestion');
+    const aiBtn = document.getElementById('aiBtn');
+    const aiResponse = document.getElementById('aiResponse');
+    const aiReadBtn = document.getElementById('aiReadBtn');
+
+    const ytLink = document.getElementById('ytLink');
+    const ytLoadBtn = document.getElementById('ytLoadBtn');
+    const ytStartTimerBtn = document.getElementById('ytStartTimerBtn');
+    const ytStopTimerBtn = document.getElementById('ytStopTimerBtn');
+    const ytFrame = document.getElementById('ytFrame');
+
+    const adminPartSelect = document.getElementById('adminPartSelect');
+    const adminSubjectSelect = document.getElementById('adminSubjectSelect');
+    const adminNewSubject = document.getElementById('adminNewSubject');
+    const adminAddSubjectBtn = document.getElementById('adminAddSubjectBtn');
+    const adminDeleteSubjectBtn = document.getElementById('adminDeleteSubjectBtn');
+    const resTitle = document.getElementById('resTitle');
+    const resLink = document.getElementById('resLink');
+    const addResBtn = document.getElementById('addResBtn');
+    const adminResourceList = document.getElementById('adminResourceList');
+    const adminResourceViewer = document.getElementById('adminResourceViewer');
+
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+
+    const subjectOverlay = document.getElementById('subjectOverlay');
+    const subjectOverlayTitle = document.getElementById('subjectOverlayTitle');
+    const subjectOverlayCloseBtn = document.getElementById('subjectOverlayCloseBtn');
+    const subjectResourceList = document.getElementById('subjectResourceList');
+    const subjectResourceViewer = document.getElementById('subjectResourceViewer');
+
+    const omLink = document.getElementById('omLink');
+    const om5Btn = document.getElementById('om5Btn');
+    const om10Btn = document.getElementById('om10Btn');
+    const omStopBtn = document.getElementById('omStopBtn');
+    const omStatus = document.getElementById('omStatus');
+    const omFrame = document.getElementById('omFrame');
+
+    // Theme
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      meta.theme = theme;
+      localStorage.setItem(META_KEY, JSON.stringify(meta));
+    }
+    themeSelect.addEventListener('change', e => applyTheme(e.target.value));
+    versionLabel.textContent = APP_VERSION;
+
+    // Navigation
+    function setNavActive(navName) {
+      [...mainNav.querySelectorAll('button')].forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-nav') === navName);
+      });
     }
 
+    function showPage(page) {
+      pageHome.style.display = (page === 'home') ? 'block' : 'none';
+      pagePart.style.display = (page === 'part') ? 'block' : 'none';
+      pageTests.style.display = (page === 'tests') ? 'block' : 'none';
+      pageAdmin.style.display = (page === 'admin') ? 'block' : 'none';
+    }
+
+    function setCurrentPart(part) {
+      currentPart = part;
+      homePartLabel.textContent = part;
+      homePartLabel2.textContent = part;
+      entriesLabel.textContent = part;
+      partTitle.textContent = part + ' workspace';
+      partSubtitle.textContent = 'Choose a subject to open its full-screen resources.';
+      renderSubjectsSelect();
+      renderSubjectsForPart();
+      renderEntries();
+      renderStreak();
+      renderCharts();
+      reminderTime.value = meta.reminders[currentPart] || '';
+      todayBadge.textContent = new Date().toLocaleDateString();
+    }
+
+    mainNav.addEventListener('click', e => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const nav = e.target.getAttribute('data-nav');
+      if (nav === 'home') {
+        showPage('home');
+        setNavActive('home');
+      } else if (nav === 'tests') {
+        showPage('tests');
+        setNavActive('tests');
+      } else if (nav === 'admin') {
+        showPage('admin');
+        setNavActive('admin');
+        renderAdminPartOptions();
+        renderAdminSubjects();
+        renderAdminResources();
+      } else {
+        // part
+        setCurrentPart(nav);
+        showPage('part');
+        setNavActive(nav);
+      }
+    });
+
+    backToHomeBtn.addEventListener('click', () => {
+      showPage('home');
+      setNavActive('home');
+    });
+    backTestsHomeBtn.addEventListener('click', () => {
+      showPage('home');
+      setNavActive('home');
+    });
+
+    // Week / streak helpers
     function weekIdFromDate(date) {
       const d = new Date(date.getTime());
       d.setHours(0,0,0,0);
@@ -710,182 +788,6 @@
       const week = Math.floor(diff / (7*24*60*60*1000));
       return d.getFullYear() + '-W' + String(week+1).padStart(2,'0');
     }
-
-    function initLogin() {
-      if (!hasPin()) {
-        loginSubtitle.textContent = 'Set a 4-digit PIN to lock your tracker. Stored only on this device.';
-        loginBtn.textContent = 'Set PIN & Enter';
-      } else {
-        loginSubtitle.textContent = 'Enter your 4-digit PIN to unlock your tracker.';
-        loginBtn.textContent = 'Unlock';
-      }
-      loginBtn.addEventListener('click', () => {
-        const pin = pinInput.value.trim();
-        if (pin.length !== 4 || !/^[0-9]+$/.test(pin)) {
-          loginError.textContent = 'PIN must be 4 digits.';
-          return;
-        }
-        if (!hasPin()) {
-          localStorage.setItem(PIN_KEY, pin);
-          loginScreen.style.display = 'none';
-        } else {
-          const stored = localStorage.getItem(PIN_KEY);
-          if (stored === pin) {
-            loginScreen.style.display = 'none';
-          } else {
-            loginError.textContent = 'Incorrect PIN. Try again.';
-          }
-        }
-      });
-    }
-
-    // Theme
-    const themeSelect = document.getElementById('themeSelect');
-    function applyTheme(theme) {
-      document.body.setAttribute('data-theme', theme);
-      meta.theme = theme;
-      localStorage.setItem(META_KEY, JSON.stringify(meta));
-    }
-    themeSelect.addEventListener('change', e => applyTheme(e.target.value));
-
-    const versionLabel = document.getElementById('versionLabel');
-    if (versionLabel) versionLabel.textContent = APP_VERSION;
-
-    // Part navigation
-    const partNav = document.getElementById('partNav');
-    const entriesLabel = document.getElementById('entriesLabel');
-    partNav.addEventListener('click', e => {
-      if (e.target.tagName !== 'BUTTON') return;
-      currentPart = e.target.getAttribute('data-part');
-      [...partNav.querySelectorAll('button')].forEach(btn => btn.classList.toggle('active', btn === e.target));
-      entriesLabel.textContent = currentPart;
-      renderSubjects();
-      renderEntries();
-      renderStreak();
-      renderChart();
-      renderSubjectChart();
-      renderResources();
-    });
-
-    // Subjects
-    const subjectSelect = document.getElementById('subjectSelect');
-    const subjectChips = document.getElementById('subjectChips');
-    const newSubjectInput = document.getElementById('newSubject');
-    const addSubjectBtn = document.getElementById('addSubjectBtn');
-
-    function renderSubjects() {
-      const list = subjects[currentPart] || [];
-      subjectSelect.innerHTML = '';
-      list.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s;
-        opt.textContent = s;
-        subjectSelect.appendChild(opt);
-      });
-      subjectChips.innerHTML = '';
-      list.forEach(s => {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.innerHTML = `<span>${s}</span>`;
-        chip.addEventListener('click', () => {
-          subjectSelect.value = s;
-          renderResources();
-        });
-        subjectChips.appendChild(chip);
-      });
-      const info = document.createElement('div');
-      info.className = 'muted';
-      info.textContent = 'Tap to select subject.';
-      subjectChips.appendChild(info);
-    }
-
-    addSubjectBtn.addEventListener('click', () => {
-      const name = newSubjectInput.value.trim();
-      if (!name) return;
-      subjects[currentPart] = subjects[currentPart] || [];
-      if (!subjects[currentPart].includes(name)) {
-        subjects[currentPart].push(name);
-        localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
-        newSubjectInput.value = '';
-        renderSubjects();
-        subjectSelect.value = name;
-      }
-    });
-
-    // Save entry
-    const learningInput = document.getElementById('learningInput');
-    const timeInput = document.getElementById('timeInput');
-    const memoryInput = document.getElementById('memoryInput');
-    const reminderTime = document.getElementById('reminderTime');
-    const saveEntryBtn = document.getElementById('saveEntryBtn');
-    const entriesList = document.getElementById('entriesList');
-    const todayBadge = document.getElementById('todayBadge');
-
-    todayBadge.textContent = new Date().toLocaleDateString();
-
-    saveEntryBtn.addEventListener('click', () => {
-      const subject = subjectSelect.value || 'General';
-      const learning = learningInput.value.trim();
-      const time = Number(timeInput.value || 0);
-      const memory = Number(memoryInput.value || 3);
-
-      if (!learning) {
-        alert('Write at least one line about what you learned.');
-        return;
-      }
-
-      const entry = {
-        id: Date.now(),
-        part: currentPart,
-        subject,
-        learning,
-        time,
-        memory,
-        date: new Date().toISOString()
-      };
-      logs.push(entry);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-
-      if (reminderTime.value) {
-        meta.reminders[currentPart] = reminderTime.value;
-        localStorage.setItem(META_KEY, JSON.stringify(meta));
-      }
-
-      learningInput.value = '';
-      timeInput.value = '';
-      reminderTime.value = meta.reminders[currentPart] || '';
-
-      renderEntries();
-      renderStreak();
-      renderChart();
-      renderSubjectChart();
-      alert('Saved! Good job, Tilak.');
-    });
-
-    function renderEntries() {
-      entriesList.innerHTML = '';
-      const filtered = logs
-        .filter(l => l.part === currentPart)
-        .sort((a,b) => new Date(b.date) - new Date(a.date));
-      if (!filtered.length) {
-        entriesList.innerHTML = '<div class="muted">No entries yet for this part. Log today’s study to start.</div>';
-        return;
-      }
-      filtered.forEach(e => {
-        const div = document.createElement('div');
-        div.className = 'entry';
-        const d = new Date(e.date);
-        div.innerHTML = `<small>${d.toLocaleString()} • ${e.subject}</small>
-          <div>${e.learning.replace(/</g,'&lt;')}</div>
-          <small>Time: ${e.time || 0} mins • Memory: ${e.memory}/5</small>`;
-        entriesList.appendChild(div);
-      });
-    }
-
-    // Streak
-    const currentStreakEl = document.getElementById('currentStreak');
-    const bestStreakEl = document.getElementById('bestStreak');
-    const reviveBtn = document.getElementById('reviveBtn');
 
     function getPartDays(part) {
       const set = new Set();
@@ -922,6 +824,95 @@
       return {current,best};
     }
 
+    // Subjects
+    function renderSubjectsSelect() {
+      const list = subjects[currentPart] || [];
+      subjectSelect.innerHTML = '';
+      list.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        subjectSelect.appendChild(opt);
+      });
+    }
+
+    function renderSubjectsForPart() {
+      const list = subjects[currentPart] || [];
+      partSubjectsList.innerHTML = '';
+      if (!list.length) {
+        partSubjectsList.innerHTML = '<div class="muted">No subjects yet. Add them from Admin.</div>';
+        return;
+      }
+      list.forEach(s => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = s;
+        chip.addEventListener('click', () => openSubjectOverlay(currentPart, s));
+        partSubjectsList.appendChild(chip);
+      });
+    }
+
+    // Entries
+    todayBadge.textContent = new Date().toLocaleDateString();
+
+    saveEntryBtn.addEventListener('click', () => {
+      const subject = subjectSelect.value || 'General';
+      const learning = learningInput.value.trim();
+      const time = Number(timeInput.value || 0);
+      const memory = Number(memoryInput.value || 3);
+
+      if (!learning) {
+        alert('Write at least one line about what you learned.');
+        return;
+      }
+
+      const entry = {
+        id: Date.now(),
+        part: currentPart,
+        subject,
+        learning,
+        time,
+        memory,
+        date: new Date().toISOString()
+      };
+      logs.push(entry);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+
+      if (reminderTime.value) {
+        meta.reminders[currentPart] = reminderTime.value;
+        localStorage.setItem(META_KEY, JSON.stringify(meta));
+      }
+
+      learningInput.value = '';
+      timeInput.value = '';
+      reminderTime.value = meta.reminders[currentPart] || '';
+
+      renderEntries();
+      renderStreak();
+      renderCharts();
+      alert('Saved! Good job, Tilak.');
+    });
+
+    function renderEntries() {
+      entriesList.innerHTML = '';
+      const filtered = logs
+        .filter(l => l.part === currentPart)
+        .sort((a,b) => new Date(b.date) - new Date(a.date));
+      if (!filtered.length) {
+        entriesList.innerHTML = '<div class="muted">No entries yet for this part. Log today’s study to start.</div>';
+        return;
+      }
+      filtered.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        const d = new Date(e.date);
+        div.innerHTML = `<small>${d.toLocaleString()} • ${e.subject}</small>
+          <div>${e.learning.replace(/</g,'&lt;')}</div>
+          <small>Time: ${e.time || 0} mins • Memory: ${e.memory}/5</small>`;
+        entriesList.appendChild(div);
+      });
+    }
+
     function renderStreak() {
       const {current,best} = computeStreak(currentPart);
       currentStreakEl.textContent = current;
@@ -955,16 +946,12 @@
       localStorage.setItem(META_KEY, JSON.stringify(meta));
       renderStreak();
       renderEntries();
-      renderChart();
-      renderSubjectChart();
+      renderCharts();
       alert('Your streak has been revived for this week!');
     });
 
     // Charts
-    const chartCanvas = document.getElementById('progressChart');
-    const subjectCanvas = document.getElementById('subjectChart');
-
-    function renderChart() {
+    function renderCharts() {
       const now = new Date();
       const days = [];
       const totals = [];
@@ -977,7 +964,6 @@
           .reduce((sum,l)=>sum+(l.time||0),0);
         totals.push(dayTotal);
       }
-      if (!chartCanvas) return;
       if (chartInstance) chartInstance.destroy();
       chartInstance = new Chart(chartCanvas, {
         type: 'bar',
@@ -988,10 +974,7 @@
           scales: { y: { beginAtZero: true } }
         }
       });
-    }
 
-    function renderSubjectChart() {
-      if (!subjectCanvas) return;
       const map = {};
       logs.filter(l => l.part === currentPart).forEach(l => {
         const s = l.subject || 'General';
@@ -1011,93 +994,7 @@
       });
     }
 
-    // Export / Import
-    const exportBtn = document.getElementById('exportBtn');
-    const importBtn = document.getElementById('importBtn');
-
-    exportBtn.addEventListener('click', () => {
-      const data = { logs, subjects, meta, tests, resources, quicklinks };
-      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'karunamaayi_backup.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      alert('Backup exported as JSON.');
-    });
-
-    importBtn.addEventListener('click', () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'application/json';
-      input.onchange = e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = ev => {
-          try {
-            const data = JSON.parse(ev.target.result);
-            logs = data.logs || [];
-            subjects = data.subjects || subjects;
-            meta = data.meta || meta;
-            tests = data.tests || tests;
-            resources = data.resources || resources;
-            quicklinks = data.quicklinks || quicklinks;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-            localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
-            localStorage.setItem(META_KEY, JSON.stringify(meta));
-            localStorage.setItem(TEST_KEY, JSON.stringify(tests));
-            localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
-            localStorage.setItem(QUICKLINK_KEY, JSON.stringify(quicklinks));
-            applyTheme(meta.theme || 'light');
-            themeSelect.value = meta.theme || 'light';
-            renderSubjects();
-            renderEntries();
-            renderStreak();
-            renderChart();
-            renderSubjectChart();
-            renderTestSummary();
-            renderResources();
-            renderQuicklinks();
-            alert('Backup imported successfully.');
-          } catch (err) {
-            console.error(err);
-            alert('Could not import file. Make sure it is a valid backup JSON.');
-          }
-        };
-        reader.readAsText(file);
-      };
-      input.click();
-    });
-
     // Tests
-    const testName = document.getElementById('testName');
-    const testScore = document.getElementById('testScore');
-    const testWeek = document.getElementById('testWeek');
-    const testNotes = document.getElementById('testNotes');
-    const testSummary = document.getElementById('testSummary');
-    const addTestBtn = document.getElementById('addTestBtn');
-
-    addTestBtn.addEventListener('click', () => {
-      const name = testName.value.trim();
-      const score = Number(testScore.value || 0);
-      const week = testWeek.value.trim() || weekIdFromDate(new Date());
-      const notes = testNotes.value.trim();
-      if (!name) { alert('Enter test name.'); return; }
-      const t = { id: Date.now(), name, score, week, notes };
-      tests.push(t);
-      localStorage.setItem(TEST_KEY, JSON.stringify(tests));
-      testName.value = '';
-      testScore.value = '';
-      testWeek.value = '';
-      testNotes.value = '';
-      renderTestSummary();
-      alert('Test saved.');
-    });
-
     function renderTestSummary() {
       if (!tests.length) {
         testSummary.textContent = 'No tests logged yet.';
@@ -1120,12 +1017,24 @@
       testSummary.innerHTML = html;
     }
 
-    // AI Helper + TTS
-    const aiQuestion = document.getElementById('aiQuestion');
-    const aiBtn = document.getElementById('aiBtn');
-    const aiResponse = document.getElementById('aiResponse');
-    const aiReadBtn = document.getElementById('aiReadBtn');
+    addTestBtn.addEventListener('click', () => {
+      const name = testName.value.trim();
+      const score = Number(testScore.value || 0);
+      const week = testWeek.value.trim() || weekIdFromDate(new Date());
+      const notes = testNotes.value.trim();
+      if (!name) { alert('Enter test name.'); return; }
+      const t = { id: Date.now(), name, score, week, notes };
+      tests.push(t);
+      localStorage.setItem(TEST_KEY, JSON.stringify(tests));
+      testName.value = '';
+      testScore.value = '';
+      testWeek.value = '';
+      testNotes.value = '';
+      renderTestSummary();
+      alert('Test saved.');
+    });
 
+    // AI helper
     function aiReply(q) {
       const text = q.toLowerCase();
       if (!text.trim()) return 'Type a question about your study, habits, or planning.';
@@ -1152,9 +1061,8 @@
         return;
       }
       const utter = new SpeechSynthesisUtterance(text);
-      let voices = speechSynthesis.getVoices();
       function pickVoiceAndSpeak() {
-        voices = speechSynthesis.getVoices();
+        const voices = speechSynthesis.getVoices();
         const indian = voices.find(v => v.lang === 'en-IN');
         const english = voices.find(v => v.lang.startsWith('en')) || null;
         if (indian) utter.voice = indian;
@@ -1162,25 +1070,197 @@
         speechSynthesis.cancel();
         speechSynthesis.speak(utter);
       }
+      const voices = speechSynthesis.getVoices();
       if (!voices.length) {
         speechSynthesis.onvoiceschanged = pickVoiceAndSpeak;
       } else {
         pickVoiceAndSpeak();
       }
     }
-
     aiReadBtn.addEventListener('click', () => {
       speakTextInIndianEnglish(aiResponse.textContent || '');
     });
 
-    // YouTube / Audio Focus
-    const ytLink = document.getElementById('ytLink');
-    const ytLoadBtn = document.getElementById('ytLoadBtn');
-    const ytStartTimerBtn = document.getElementById('ytStartTimerBtn');
-    const ytStopTimerBtn = document.getElementById('ytStopTimerBtn');
-    const ytFrame = document.getElementById('ytFrame');
-    let ytTimerId = null;
+    // Admin: parts & subjects
+    function renderAdminPartOptions() {
+      adminPartSelect.innerHTML = '';
+      defaultParts.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        adminPartSelect.appendChild(opt);
+      });
+      adminPartSelect.value = currentPart;
+    }
 
+    function renderAdminSubjects() {
+      const part = adminPartSelect.value;
+      const list = subjects[part] || [];
+      adminSubjectSelect.innerHTML = '';
+      list.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        adminSubjectSelect.appendChild(opt);
+      });
+    }
+
+    adminPartSelect.addEventListener('change', () => {
+      renderAdminSubjects();
+      renderAdminResources();
+    });
+    adminSubjectSelect.addEventListener('change', renderAdminResources);
+
+    adminAddSubjectBtn.addEventListener('click', () => {
+      const part = adminPartSelect.value;
+      const name = adminNewSubject.value.trim();
+      if (!name) return;
+      subjects[part] = subjects[part] || [];
+      if (!subjects[part].includes(name)) {
+        subjects[part].push(name);
+        localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
+        adminNewSubject.value = '';
+        renderAdminSubjects();
+        if (part === currentPart) {
+          renderSubjectsSelect();
+          renderSubjectsForPart();
+        }
+        alert('Subject added.');
+      } else {
+        alert('Subject already exists.');
+      }
+    });
+
+    adminDeleteSubjectBtn.addEventListener('click', () => {
+      const part = adminPartSelect.value;
+      const subj = adminSubjectSelect.value;
+      if (!subj) { alert('No subject selected.'); return; }
+      if (!confirm(`Delete subject "${subj}" from ${part}? Resources remain but will be unattached.`)) return;
+      subjects[part] = (subjects[part] || []).filter(s => s !== subj);
+      localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
+      renderAdminSubjects();
+      if (part === currentPart) {
+        renderSubjectsSelect();
+        renderSubjectsForPart();
+      }
+    });
+
+    // Admin resources
+    function renderAdminResources() {
+      const part = adminPartSelect.value;
+      const subj = adminSubjectSelect.value;
+      adminResourceList.innerHTML = '';
+      adminResourceViewer.src = '';
+      if (!part || !subj) {
+        adminResourceList.innerHTML = '<div class="muted">Select part and subject first.</div>';
+        return;
+      }
+      const filtered = resources
+        .filter(r => r.part === part && r.subject === subj)
+        .sort((a,b) => new Date(b.date) - new Date(a.date));
+      if (!filtered.length) {
+        adminResourceList.innerHTML = '<div class="muted">No resources yet for this subject.</div>';
+        return;
+      }
+      filtered.forEach(r => {
+        const d = new Date(r.date);
+        const div = document.createElement('div');
+        div.className = 'entry clickable small-padding';
+        div.innerHTML = `
+          <small>${d.toLocaleString()}</small>
+          <div style="font-weight:600; margin-bottom:2px;">${r.title || 'Resource'}</div>
+          <div style="word-break:break-all; font-size:0.78rem;">${r.link}</div>
+        `;
+        div.addEventListener('click', () => {
+          try { adminResourceViewer.src = r.link; }
+          catch (e) { window.open(r.link, '_blank'); }
+        });
+        adminResourceList.appendChild(div);
+      });
+    }
+
+    addResBtn.addEventListener('click', () => {
+      const part = adminPartSelect.value;
+      const subj = adminSubjectSelect.value;
+      if (!part || !subj) {
+        alert('Select part and subject first. The app will not choose subject automatically.');
+        return;
+      }
+      const title = (resTitle.value || '').trim() || 'Resource';
+      const link = (resLink.value || '').trim();
+      if (!link) {
+        alert('Paste a link first.');
+        return;
+      }
+      const now = new Date();
+      const res = {
+        id: Date.now(),
+        part,
+        subject: subj,
+        title,
+        link,
+        date: now.toISOString()
+      };
+      resources.push(res);
+      localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
+      resTitle.value = '';
+      resLink.value = '';
+      renderAdminResources();
+      alert('Resource saved.');
+    });
+
+    // Subject overlay (view-only resources for that subject)
+    function renderSubjectResources() {
+      subjectResourceList.innerHTML = '';
+      subjectResourceViewer.src = '';
+      if (!overlayPart || !overlaySubject) {
+        subjectResourceList.innerHTML = '<div class="muted">No subject selected.</div>';
+        return;
+      }
+      const filtered = resources
+        .filter(r => r.part === overlayPart && r.subject === overlaySubject)
+        .sort((a,b) => new Date(b.date) - new Date(a.date));
+      if (!filtered.length) {
+        subjectResourceList.innerHTML = '<div class="muted">No resources saved yet. Add them from Admin.</div>';
+        return;
+      }
+      filtered.forEach(r => {
+        const d = new Date(r.date);
+        const div = document.createElement('div');
+        div.className = 'entry clickable small-padding';
+        div.innerHTML = `
+          <small>${d.toLocaleString()}</small>
+          <div style="font-weight:600; margin-bottom:2px;">${r.title || 'Resource'}</div>
+          <div style="word-break:break-all; font-size:0.78rem;">${r.link}</div>
+        `;
+        div.addEventListener('click', () => {
+          try { subjectResourceViewer.src = r.link; }
+          catch (e) { window.open(r.link, '_blank'); }
+        });
+        subjectResourceList.appendChild(div);
+      });
+    }
+
+    function openSubjectOverlay(part, subj) {
+      overlayPart = part;
+      overlaySubject = subj;
+      subjectOverlayTitle.textContent = part + ' • ' + subj;
+      subjectOverlay.style.display = 'flex';
+      renderSubjectResources();
+    }
+
+    subjectOverlayCloseBtn.addEventListener('click', () => {
+      subjectOverlay.style.display = 'none';
+      subjectResourceViewer.src = '';
+    });
+    subjectOverlay.addEventListener('click', e => {
+      if (e.target === subjectOverlay) {
+        subjectOverlay.style.display = 'none';
+        subjectResourceViewer.src = '';
+      }
+    });
+
+    // YouTube focus (Admin) – logs entry only, does NOT auto-add resources
     function getEmbedUrlFromYoutubeLink(url) {
       if (!url) return null;
       url = url.trim();
@@ -1210,7 +1290,7 @@
       ytTimerId = null;
       alert('15 minutes completed – time to review what you watched or take a short break.');
       const link = (ytLink.value || '').trim();
-      const subject = subjectSelect ? (subjectSelect.value || 'YouTube / Audio') : 'YouTube / Audio';
+      const subject = 'YouTube / Audio';
       const now = new Date();
       const entry = {
         id: Date.now(),
@@ -1223,23 +1303,9 @@
       };
       logs.push(entry);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-      if (link) {
-        const res = {
-          id: Date.now() + 1,
-          part: currentPart,
-          subject,
-          title: 'YouTube focus session',
-          link,
-          date: now.toISOString()
-        };
-        resources.push(res);
-        localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
-      }
       renderEntries();
       renderStreak();
-      renderChart();
-      renderSubjectChart();
-      renderResources();
+      renderCharts();
     }
 
     function startYtTimer() {
@@ -1250,7 +1316,6 @@
       ytTimerId = setTimeout(onYtTimerComplete, 15 * 60 * 1000);
       alert('15-minute timer started.');
     }
-
     function stopYtTimer() {
       if (ytTimerId) {
         clearTimeout(ytTimerId);
@@ -1260,210 +1325,82 @@
         alert('No active timer.');
       }
     }
-
     ytStartTimerBtn.addEventListener('click', startYtTimer);
     ytStopTimerBtn.addEventListener('click', stopYtTimer);
 
-    // Resources
-    const resourceList = document.getElementById('resourceList');
-    const resourceViewer = document.getElementById('resourceViewer');
-    const resTitle = document.getElementById('resTitle');
-    const resLink = document.getElementById('resLink');
-    const addResBtn = document.getElementById('addResBtn');
+    // Export / Import (Admin only)
+    exportBtn.addEventListener('click', () => {
+      const data = { logs, subjects, meta, tests, resources };
+      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'karunamaayi_backup.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      alert('Backup exported as JSON.');
+    });
 
-    function renderResources() {
-      if (!resourceList) return;
-      resourceList.innerHTML = '';
-
-      const currentSubject = subjectSelect ? (subjectSelect.value || null) : null;
-
-      const filtered = resources
-        .filter(r =>
-          r.part === currentPart &&
-          (!currentSubject || r.subject === currentSubject)
-        )
-        .sort((a,b) => new Date(b.date) - new Date(a.date));
-
-      if (!filtered.length) {
-        resourceList.innerHTML = '<div class="muted">No resources saved yet for this part/subject.</div>';
-        if (resourceViewer) resourceViewer.src = '';
-        return;
-      }
-
-      filtered.forEach(r => {
-        const d = new Date(r.date);
-        const div = document.createElement('div');
-        div.className = 'entry clickable';
-        div.innerHTML = `
-          <small>${d.toLocaleString()} • ${r.subject}</small>
-          <div style="font-weight:600; margin-bottom:2px;">${r.title || 'Resource'}</div>
-          <div style="word-break:break-all; font-size:0.78rem;">${r.link}</div>
-        `;
-        div.addEventListener('click', () => {
-          if (resourceViewer) {
-            try {
-              resourceViewer.src = r.link;
-            } catch (e) {
-              window.open(r.link, '_blank');
-            }
-          } else {
-            window.open(r.link, '_blank');
+    importBtn.addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/json';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            logs = data.logs || [];
+            subjects = data.subjects || subjects;
+            meta = data.meta || meta;
+            tests = data.tests || tests;
+            resources = data.resources || resources;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+            localStorage.setItem(SUBJECT_KEY, JSON.stringify(subjects));
+            localStorage.setItem(META_KEY, JSON.stringify(meta));
+            localStorage.setItem(TEST_KEY, JSON.stringify(tests));
+            localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
+            applyTheme(meta.theme || 'light');
+            themeSelect.value = meta.theme || 'light';
+            renderSubjectsSelect();
+            renderSubjectsForPart();
+            renderEntries();
+            renderStreak();
+            renderCharts();
+            renderTestSummary();
+            renderAdminPartOptions();
+            renderAdminSubjects();
+            renderAdminResources();
+            alert('Backup imported successfully.');
+          } catch (err) {
+            console.error(err);
+            alert('Could not import file. Make sure it is a valid backup JSON.');
           }
-        });
-        resourceList.appendChild(div);
-      });
-    }
-
-    if (addResBtn) {
-      addResBtn.addEventListener('click', () => {
-        const title = (resTitle.value || '').trim() || 'Resource';
-        const link = (resLink.value || '').trim();
-        if (!link) {
-          alert('Paste a link first.');
-          return;
-        }
-        const subj = subjectSelect ? (subjectSelect.value || 'General') : 'General';
-        const now = new Date();
-        const res = {
-          id: Date.now(),
-          part: currentPart,
-          subject: subj,
-          title,
-          link,
-          date: now.toISOString()
         };
-        resources.push(res);
-        localStorage.setItem(RESOURCE_KEY, JSON.stringify(resources));
-        resTitle.value = '';
-        resLink.value = '';
-        renderResources();
-        alert('Resource saved for ' + currentPart + ' – ' + subj + '.');
-      });
-    }
+        reader.readAsText(file);
+      };
+      input.click();
+    });
 
-    // Quick links
-    const qlName = document.getElementById('qlName');
-    const qlUrl = document.getElementById('qlUrl');
-    const qlAddBtn = document.getElementById('qlAddBtn');
-    const quicklinkList = document.getElementById('quicklinkList');
-
-    function renderQuicklinks() {
-      if (!quicklinkList) return;
-      quicklinkList.innerHTML = '';
-      if (!quicklinks.length) {
-        quicklinkList.innerHTML = '<div class="muted">No quick links yet. Save links to sites/apps you use often.</div>';
-        return;
-      }
-      quicklinks.forEach((q, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.style.marginBottom = '6px';
-        const btn = document.createElement('button');
-        btn.className = 'quicklink-btn';
-        btn.innerHTML = `🔗 <span>${q.name}</span>`;
-        const urlSpan = document.createElement('span');
-        urlSpan.className = 'url';
-        urlSpan.textContent = ' ' + q.url;
-        btn.appendChild(urlSpan);
-        btn.addEventListener('click', () => {
-          window.open(q.url, '_blank');
-        });
-
-        const smallRow = document.createElement('div');
-        smallRow.style.display = 'flex';
-        smallRow.style.justifyContent = 'space-between';
-        smallRow.style.alignItems = 'center';
-        smallRow.style.marginTop = '2px';
-
-        const partInfo = document.createElement('span');
-        partInfo.className = 'muted';
-        partInfo.textContent = 'Saved link';
-
-        const delBtn = document.createElement('button');
-        delBtn.textContent = '✕';
-        delBtn.className = 'secondary';
-        delBtn.style.padding = '2px 8px';
-        delBtn.style.fontSize = '0.7rem';
-        delBtn.style.boxShadow = 'none';
-        delBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (confirm('Remove this quick link?')) {
-            quicklinks.splice(index, 1);
-            localStorage.setItem(QUICKLINK_KEY, JSON.stringify(quicklinks));
-            renderQuicklinks();
-          }
-        });
-
-        smallRow.appendChild(partInfo);
-        smallRow.appendChild(delBtn);
-
-        wrapper.appendChild(btn);
-        wrapper.appendChild(smallRow);
-        quicklinkList.appendChild(wrapper);
-      });
-    }
-
-    if (qlAddBtn) {
-      qlAddBtn.addEventListener('click', () => {
-        const name = (qlName.value || '').trim();
-        const url = (qlUrl.value || '').trim();
-        if (!name || !url) {
-          alert('Please fill both Name and Link.');
-          return;
-        }
-        quicklinks.push({ name, url });
-        localStorage.setItem(QUICKLINK_KEY, JSON.stringify(quicklinks));
-        qlName.value = '';
-        qlUrl.value = '';
-        renderQuicklinks();
-        alert('Quick link saved.');
-      });
-    }
-
-    // Om meditation
-    const om5Btn = document.getElementById('om5Btn');
-    const om10Btn = document.getElementById('om10Btn');
-    const omStopBtn = document.getElementById('omStopBtn');
-    const omStatus = document.getElementById('omStatus');
-
-    let omAudioContext = null;
-    let omOsc1 = null;
-    let omOsc2 = null;
-    let omGain = null;
-    let omTimerId = null;
-
+    // Om meditation via YouTube link
     function startOm(minutes) {
       stopOm();
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) {
-        alert('Your browser does not support the audio context needed for Om sound.');
+      const raw = omLink.value.trim();
+      const embed = getEmbedUrlFromYoutubeLink(raw);
+      if (!embed) {
+        alert('Paste a valid Om chanting YouTube link first.');
         return;
       }
-      omAudioContext = new AC();
-      omOsc1 = omAudioContext.createOscillator();
-      omOsc2 = omAudioContext.createOscillator();
-      omGain = omAudioContext.createGain();
-
-      omOsc1.frequency.value = 136.1;
-      omOsc2.frequency.value = 272.2;
-      omOsc1.type = 'sine';
-      omOsc2.type = 'sine';
-
-      omOsc1.connect(omGain);
-      omOsc2.connect(omGain);
-      omGain.connect(omAudioContext.destination);
-
-      omGain.gain.setValueAtTime(0, omAudioContext.currentTime);
-      omGain.gain.linearRampToValueAtTime(0.15, omAudioContext.currentTime + 1);
-
-      omOsc1.start();
-      omOsc2.start();
-
-      const totalMs = minutes * 60 * 1000;
-      if (omStatus) omStatus.textContent = `Playing Om for ${minutes} minutes...`;
+      omFrame.src = embed;
+      omStatus.textContent = `Playing Om for ${minutes} minutes...`;
       omTimerId = setTimeout(() => {
         stopOm();
         alert(`${minutes} minutes of Om meditation completed.`);
-      }, totalMs);
+      }, minutes * 60 * 1000);
     }
 
     function stopOm() {
@@ -1471,36 +1408,15 @@
         clearTimeout(omTimerId);
         omTimerId = null;
       }
-      if (omGain && omAudioContext) {
-        omGain.gain.cancelScheduledValues(omAudioContext.currentTime);
-        omGain.gain.linearRampToValueAtTime(0, omAudioContext.currentTime + 0.5);
-      }
-      if (omOsc1 && omAudioContext) {
-        omOsc1.stop(omAudioContext.currentTime + 0.5);
-        omOsc1.disconnect();
-        omOsc1 = null;
-      }
-      if (omOsc2 && omAudioContext) {
-        omOsc2.stop(omAudioContext.currentTime + 0.5);
-        omOsc2.disconnect();
-        omOsc2 = null;
-      }
-      if (omAudioContext && omAudioContext.close) {
-        setTimeout(() => {
-          omAudioContext.close();
-          omAudioContext = null;
-        }, 600);
-      }
-      if (omStatus) omStatus.textContent = 'Not playing.';
+      omFrame.src = '';
+      omStatus.textContent = 'Not playing.';
     }
 
-    if (om5Btn && om10Btn && omStopBtn) {
-      om5Btn.addEventListener('click', () => startOm(5));
-      om10Btn.addEventListener('click', () => startOm(10));
-      omStopBtn.addEventListener('click', () => stopOm());
-    }
+    om5Btn.addEventListener('click', () => startOm(5));
+    om10Btn.addEventListener('click', () => startOm(10));
+    omStopBtn.addEventListener('click', () => stopOm());
 
-    // Reminder check
+    // Reminders
     function checkReminders() {
       const now = new Date();
       const hh = String(now.getHours()).padStart(2,'0');
@@ -1518,17 +1434,13 @@
     function init() {
       applyTheme(meta.theme || 'light');
       themeSelect.value = meta.theme || 'light';
-      renderSubjects();
-      renderEntries();
-      renderStreak();
-      renderChart();
-      renderSubjectChart();
       renderTestSummary();
-      renderResources();
-      renderQuicklinks();
-      reminderTime.value = meta.reminders[currentPart] || '';
-      initLogin();
-      todayBadge.textContent = new Date().toLocaleDateString();
+      setCurrentPart('UPSC');
+      renderAdminPartOptions();
+      renderAdminSubjects();
+      renderAdminResources();
+      showPage('home');
+      setNavActive('home');
     }
 
     init();
